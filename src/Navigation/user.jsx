@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../Pages/User/Login/Login'
-import Testlayout from '../testlayout'
+import AttendanceTracking from '../Pages/User/Attendance Tracking'
+import PersonalInfo from '../Pages/User/My Profile/Personal info'
+import StaffInfo from '../Pages/User/My Profile/Staff info'
+import LeaveRequest from '../Pages/User/Leave Request'
 
 const User = () =>{
     return (
@@ -12,7 +15,11 @@ const User = () =>{
           }
         />
         <Route path="login" element={<Login />} />
-        <Route path = "sidebar" element = {<Testlayout />} />
+        <Route path='/attendance/*' element={<AttendanceTracking />} />
+        <Route path='/myProfile' element={<PersonalInfo />} />
+        <Route path='/myProfile/staffInfo' element={<StaffInfo />} />
+        <Route path='/request' element={<LeaveRequest />} />
+
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="register_user_info" element={<RegisterUserInfo />} />

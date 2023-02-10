@@ -13,6 +13,7 @@
 .bound{
     background-image: linear-gradient(120deg, #3ca7ee, #9b408f);
     min-height: 100vh;
+    /* height: 100vh; */
     font-family: 'Poppins';
     display: flex;
     justify-content: center;

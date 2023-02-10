@@ -1,0 +1,28 @@
+.full {
+    display: flex;
+    width: 100vw;
+    /* flex-direction: row; */
+}
+
+.someDiv {
+    width: 15vw;
+    height: 100vh;
+    border: 0.25vh solid;
+    margin: 0;
+    margin-right: 0.5vw;
+}
+
+#top-content {
+    width: 85vw;
+    padding: 1vw;
+    padding-bottom: 0.5vw;
+    margin-bottom: 0.5vw;
+    align-items: center;
+    flex-basis: 90%;
+    max-height: 90vh;
+
+}
+
+#content {
+    margin-top: 2rem;
+}

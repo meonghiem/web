@@ -11,9 +11,23 @@ function handleClickOnRow(e) {
 
 const Table = ({ tableHead, data }) => {
   //   console.log(data)
+  let list = data.map( (rows, index) => {
+    console.log(rows)
+    return (
+      <tr id={index} className={Styles.row} onClick={handleClickOnRow}  >
+        { 
+          Object.entries(rows).map( ([key, value]) => ( key !== "key" ? (
+            key === "action" ? <Button btnType="dark" children="Update"></Button> : <td className={Styles.cell}>{value}</td>
+          ) : <></> 
+          ) )
+        }
+      </tr>
+    )
+  })
+  // list += <Button btnType="table" ></Button>
   return (
     <div className={Styles.outside}>
-      <table className={Styles.table}>
+      <table className={Styles.table} rules='none'>
         <thead className={Styles.tablehead}>
           <tr>
             {tableHead.map((ths) => (
@@ -24,26 +38,7 @@ const Table = ({ tableHead, data }) => {
           </tr>
         </thead>
         <tbody className={Styles.tablebody}>
-          {data.map((row, index) => (
-            <tr id={index} className={Styles.row} onClick={handleClickOnRow}  >
-              <td className={Styles.cell}>{row.day}</td>
-              <td className={Styles.cell}>{row.date}</td>
-              <td className={Styles.cell}>{row.in}</td>
-              <td className={Styles.cell}>{row.out}</td>
-              <td className={Styles.cell}>{row.total_break}</td>
-              <td className={Styles.cell}>{row.work_time}</td>
-              <td className={Styles.cell}>
-                <Button>
-                    Update
-                </Button>
-              </td>
-              <td className={Styles.cell}>
-                <Button>
-                  Comment
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {list}
         </tbody>
       </table>
     </div>

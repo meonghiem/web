@@ -1,8 +1,9 @@
 import * as React from "react";
 import AppTab from "./app-tab";
 import AppSidebar from "./app-sidebar";
+import './layout.css'
 
-export default function Layout({ parentName, childName, children }) {
+export default function Layout({tab, content}) {
   return (
     // <div>
     //     <AppTab tabName={parentTab} childName={childTab}></AppTab>
@@ -14,11 +15,11 @@ export default function Layout({ parentName, childName, children }) {
           <div id="sidebar">
             <AppSidebar />
           </div>
-          <div id="content">
+          <div id="top-content">
             {/* {parentTab && <AppTabs role="parent" tabs={parentTab}></AppTabs>} */}
             {/* {childTab && <AppTabs role="children" tabs={childTab}></AppTabs>} */}
-            <AppTab tabName={parentName} childName={childName} />
-            <div>{children}</div>
+            <AppTab tabName={tab.parent} childName={tab.child}></AppTab>
+            <div id="content">{content}</div>
           </div>
         </div>
       </div>
@@ -26,18 +27,15 @@ export default function Layout({ parentName, childName, children }) {
         #wrapper {
           max-width: 100vw;
           height: 100vh;
+          // margin-top:2rem;
         }
         #main-content {
           display: flex;
         }
         #sidebar {
           flex-basis: 10%;
-          padding-right: 5px;
+          padding-right: 1rem;
           // position:fixed;
-        }
-        #content {
-          // padding-left: 10%;
-          flex-basis: 90%;
         }
       `}</style>
     </>

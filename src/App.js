@@ -1,5 +1,5 @@
 // import logo from "./logo.svg";
-// import "./App.css";
+import "./App.css";
 
 import Router from "./Navigation/router";
 
@@ -21,10 +21,17 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <div className="h-full m-0">
+    <div>
       <Router />
     </div>
   );
 }
 
 export default App;
+
+window.addEventListener('DOMContentLoaded', function(){
+  var myDatepicker = document.querySelector('input[name="demo"]');
+  myDatepicker.DatePickerX.init({
+    // options here
+  });
+});

@@ -1,10 +1,10 @@
 // import './App.css';
-import Button from './components/button'
+// import Button from './components/button'
 // import IconButton from './components/iconButton';
 // import Logo192 from 'public/logo192.png'
 import Table from './components/table'
 import AppTab from './layout/app-tab';
-import Sidebar from './layout/app-sidebar';
+// import Sidebar from './layout/app-sidebar';
 
 const data = [];
 for (let i = 0; i < 30; ++i) {
@@ -16,6 +16,8 @@ for (let i = 0; i < 30; ++i) {
     out: '16:54',
     total_break: '1.52',
     work_time: '5.39',
+    status: 'done',
+    action: '',
   })
 }
 
@@ -51,9 +53,9 @@ const column = [
     key: 'work_time',
   },
   {
-    title: '',
-    dataIndex: 'action',
-    key: 'action',
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
     // render: () => <ButtonComponent className="button-color" children="Update" />,
   },
   {
@@ -66,15 +68,15 @@ const column = [
 const tabName = "My Profile";
 const childName = "Salary check";
 
-function App() {
+function Testing() {
   return (
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
-          <Button>
+          {/* <Button>
             This is a button
-          </Button>
+          </Button> */}
         </p>
         <p>
           {/* <IconButton children={"<p>Nothing<\p>"} icon={Logo192}>
@@ -87,7 +89,7 @@ function App() {
         Hello
         <AppTab tabName={tabName} childName={childName}> </AppTab> <br/>
         </div>
-        <Sidebar></Sidebar>
+        {/* <Sidebar></Sidebar> */}
         <Table tableHead={column} data={data}></Table>
       </div>
       
@@ -95,4 +97,5 @@ function App() {
   );
 }
 
-export default App;
+export default Testing;
+export {column, data};
