@@ -16,9 +16,9 @@ function Login() {
 //   }
   return (
     <>
-      <header>
+      {/* <header>
         <title>PingDaily</title>
-      </header>
+      </header> */}
       <div className={styles.container}>
         <form action="">
             <h1>Register</h1>

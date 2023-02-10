@@ -1,14 +1,15 @@
 import React from 'react'
-import Button from '../button'
+import './iconButton.css'
 
-const IconButton = ({children, icon }) => {
+const IconButton = ({ children, btnType, icon, iconStyle, ...props}) => {
   return (
-    <Button>
-      <img src={icon} alt="Twitter" />
-      <div className="text-TextOnS text-center font-medium text-xl  w-full">
-        {children}
-      </div>
-    </Button>
+    // <Button children={children} btnType={btnType} {...props}>
+    //   <img src={icon} alt="iconButton" style={iconStyle}/>
+    // </Button>
+
+    <button type="button" className="iconButton" {...props}>
+      <img src={icon} alt="iconButton" style={iconStyle}/>
+    </button>
   )
 }
 

@@ -6,9 +6,16 @@ import './tab.css'
 
 // import { TabType } from '..'
 import {employeeTabs} from '../Tabs.js'
-import {adminTabs} from '../Tabs.js'
+import Refresh from 'public/refresh.png'
+// import Button from '../../components/button';
+import IconButton from '../../components/iconButton';
+// import {adminTabs} from '../Tabs.js'
 
 let tabs = employeeTabs;
+
+function refresh() {
+  window.location.reload();
+}
 
 
 export default function AppTab({tabName, childName}) {
@@ -31,6 +38,10 @@ export default function AppTab({tabName, childName}) {
     // console.log(tab.text)
     
   }
+
+  let iconStyle = {
+    width: "2.5rem"
+  }
   return (
     <>
       <div className="tabSlide">
@@ -51,11 +62,13 @@ export default function AppTab({tabName, childName}) {
               </li>
             )
           })}
+          <li style={{width: "30vw", textAlign: "right"}}>
+            <IconButton icon={Refresh} iconStyle={iconStyle} children="Refresh" onClick={refresh}></IconButton>
+          </li>
         </ul>
-        <hr></hr>
-        <div className='childTabs'>
-          {hasChild ? <ChildTab childTabs={childTab} active={childName}/> : null} 
-        </div>
+        
+        {hasChild ? <div className='childTabs'><ChildTab childTabs={childTab} active={childName}/> </div> : null} 
+        
       </div>
     </>
   )

@@ -1,0 +1,29 @@
+#choose:hover {
+    cursor: pointer;
+}
+
+#dateChoose {
+    background-color: rgba(205, 205, 205, 0.4);
+    position:fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    text-align: center;
+    vertical-align: center;
+}
+
+#choosing {
+    background-color: white;
+    position: relative;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    font-size: 2rem;
+}
+
+select {
+    font-size: 2rem;
+}

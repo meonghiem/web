@@ -2,8 +2,9 @@ import './childTab.css'
 
 export default function ChildTab({childTabs, active}) {
     console.log("child " + childTabs)
+    
     return (
-        <div>
+        <div className='childTabs'>
             <ul id="myChildTab">
                 
                 {
@@ -26,7 +27,8 @@ export default function ChildTab({childTabs, active}) {
                     );
                 })}
             </ul>
-            <hr></hr>
+            <div>
+            </div>
         </div>
     );
 }
