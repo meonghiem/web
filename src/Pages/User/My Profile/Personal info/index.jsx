@@ -1,31 +1,37 @@
 import Button from "../../../../components/button";
-// import ReactDOM from 'react-dom';
 import Layout from "../../../../layout";
 import './index.css'
 import Logo512 from 'public/logo512.png'
+import axios from 'axios'
+import {  useEffect, useState } from "react";
 
-const Data = {
-    name: "Long Long", 
-    gender: "Male",
-    dob: "10/10/2001",
-    birthPlace: "Hanoi",
-    marital: "....",
-    email: "abcd@gmail.com",
-    phone: "0123456789",
-    emerPhone: "0987654321",
-    address: "....."
+const url = "http://localhost:8080/getUser";
+const Tab = {
+    parent: "My Profile",
+    child: "Personal info"
 }
 
-// const [isDisabled, setIsDisabled] = useState(false);
+export default function PersonalInfo (){
 
+    const [data, setData] = useState({});
+    useEffect(() => {getData()}, [])
 
-
-export default function PersonalInfo({data}) {
-    const Tab = {
-        parent: "My Profile",
-        child: "Personal info"
+    function getData() {
+        axios.get(url)
+        .then(res => {
+            setData(res.data)
+        })
+        .catch(error => console.log(error))
     }
-    data = Data;
+    
+    function sendData() {
+        axios.post(url, data)
+        .then(res => {
+            console.log(typeof res.data);
+            setData(res.data );
+        })
+        .catch(error => console.log(error))
+    }
 
     function edit(e) {
         alert("edit");
@@ -35,7 +41,7 @@ export default function PersonalInfo({data}) {
             a.disabled = false;
             a.style.border = "1px solid";
         }
-
+    
         let saveBtn = document.getElementById("save");
         saveBtn.hidden = false;
         e.currentTarget.hidden = true;
@@ -49,19 +55,19 @@ export default function PersonalInfo({data}) {
             a.disabled = true;
             a.style.border = "0";
         }
-
+    
         for(let key in data) {
             data[key] = document.getElementById(key).value;
         }
-
-        alert(JSON.stringify(data))
         
         let editBtn = document.getElementById("edit");
         editBtn.hidden = false;
         e.currentTarget.hidden = true;
-    }
     
-    return (
+        sendData();
+    }
+
+    return ( data ? 
         <Layout tab={Tab} content= {
             <div className="p_outside">
                 
@@ -142,6 +148,7 @@ export default function PersonalInfo({data}) {
             </div>
             }
         >
-        </Layout>
+        </Layout> : <button onClick={getData}>Refresh</button>
     );
+    
 }

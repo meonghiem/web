@@ -17,7 +17,7 @@ const Table = ({ tableHead, data }) => {
       <tr id={index} className={Styles.row} onClick={handleClickOnRow}  >
         { 
           Object.entries(rows).map( ([key, value]) => ( key !== "key" ? (
-            key === "action" ? <Button btnType="dark" children="Update"></Button> : <td className={Styles.cell}>{value}</td>
+            key === "action" ? <Button btnType="dark" children="Button"></Button> : <td className={Styles.cell}>{value}</td>
           ) : <></> 
           ) )
         }
