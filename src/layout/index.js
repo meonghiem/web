@@ -1,9 +1,9 @@
 import * as React from "react";
 import AppTab from "./app-tab";
 import AppSidebar from "./app-sidebar";
-import './layout.css'
+import "./layout.css";
 
-export default function Layout({tab, content}) {
+export default function Layout({ tab, content, isAdmin = false }) {
   return (
     // <div>
     //     <AppTab tabName={parentTab} childName={childTab}></AppTab>
@@ -18,7 +18,11 @@ export default function Layout({tab, content}) {
           <div id="top-content">
             {/* {parentTab && <AppTabs role="parent" tabs={parentTab}></AppTabs>} */}
             {/* {childTab && <AppTabs role="children" tabs={childTab}></AppTabs>} */}
-            <AppTab tabName={tab.parent} childName={tab.child}></AppTab>
+            <AppTab
+              tabName={tab.parent}
+              childName={tab.child}
+              isAdmin={isAdmin}
+            ></AppTab>
             <div id="content">{content}</div>
           </div>
         </div>
