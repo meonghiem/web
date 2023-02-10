@@ -16,6 +16,7 @@ function Login() {
 //   }
   return (
     <>
+      <div className = {styles.bound}>
       <header>
         <title>PingDaily</title>
       </header>
@@ -49,6 +50,7 @@ function Login() {
         </div>
         </form>
     </div>
+      </div>
     </>
   )
 }

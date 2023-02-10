@@ -4,15 +4,15 @@
     --error-color: #e74c3c;
 }
 
-*{
+/* *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
+} */
 
-body{
+.bound{
     background-image: linear-gradient(120deg, #3ca7ee, #9b408f);
-    height: 100vh;
+    min-height: 100vh;
     font-family: 'Poppins';
     display: flex;
     justify-content: center;

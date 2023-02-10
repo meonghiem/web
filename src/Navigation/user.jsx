@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../Pages/User/Login/Login'
+import Testlayout from '../testlayout'
 
 const User = () =>{
     return (
@@ -11,6 +12,7 @@ const User = () =>{
           }
         />
         <Route path="login" element={<Login />} />
+        <Route path = "sidebar" element = {<Testlayout />} />
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="register_user_info" element={<RegisterUserInfo />} />
