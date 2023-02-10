@@ -1,5 +1,5 @@
 .outside {
-  height: 60vh;
+  max-height: 60vh;
   /* width: 70vw; */
   overflow-y: scroll;
   /* border: 1px; */

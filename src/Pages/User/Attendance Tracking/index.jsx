@@ -1,7 +1,7 @@
 import Layout from "../../../layout";
 import Table from '../../../components/table';
 import {column, data} from '../../../Test';
-import './DatePicker/sass/DatePickerX.scss'
+// import './DatePicker/sass/DatePickerX.scss'
 import Calendar from 'public/calendar.png'
 import './index.css'
 

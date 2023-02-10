@@ -11,7 +11,7 @@ const User = () =>{
         <Route
           path=""
           element={
-            true ? <Navigate to={'/login'} /> : <Navigate to={'/menu_post'} />
+            true ? <Navigate to={'/login'} /> : <Navigate to={'/attendance'} />
           }
         />
         <Route path="login" element={<Login />} />

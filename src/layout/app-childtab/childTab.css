@@ -38,11 +38,11 @@
 }
 
 .childtabActive {
-    border-bottom: solid 0.3vh;
+    border-bottom: solid 0.2vh;
 }
 
 .childtabUnactive:hover {
-    border-bottom: solid 0.3vh;
+    border-bottom: solid 0.2vh;
 }
 
 

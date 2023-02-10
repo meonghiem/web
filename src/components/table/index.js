@@ -1,6 +1,6 @@
-import * as React from 'react'
-import Styles from './table.module.css'
-import Button from '../button'
+import * as React from "react";
+import Styles from "./table.module.css";
+import Button from "../button";
 // import Button from '../button'
 
 function handleClickOnRow(e) {
@@ -9,25 +9,30 @@ function handleClickOnRow(e) {
   alert(col0);
 }
 
-const Table = ({ tableHead, data }) => {
+const Table = ({ tableHead, data, tableStyle }) => {
   //   console.log(data)
-  let list = data.map( (rows, index) => {
-    console.log(rows)
+  let list = data.map((rows, index) => {
+    console.log(rows);
     return (
-      <tr id={index} className={Styles.row} onClick={handleClickOnRow}  >
-        { 
-          Object.entries(rows).map( ([key, value]) => ( key !== "key" ? (
-            key === "action" ? <Button btnType="dark" children="Update"></Button> : <td className={Styles.cell}>{value}</td>
-          ) : <></> 
-          ) )
-        }
+      <tr id={index} className={Styles.row} onClick={handleClickOnRow}>
+        {Object.entries(rows).map(([key, value]) =>
+          key !== "key" ? (
+            key === "action" ? (
+              <Button btnType="dark" children="Update"></Button>
+            ) : (
+              <td className={Styles.cell}>{value}</td>
+            )
+          ) : (
+            <></>
+          )
+        )}
       </tr>
-    )
-  })
+    );
+  });
   // list += <Button btnType="table" ></Button>
   return (
-    <div className={Styles.outside}>
-      <table className={Styles.table} rules='none'>
+    <div style={tableStyle} className={Styles.outside}>
+      <table className={Styles.table} rules="none">
         <thead className={Styles.tablehead}>
           <tr>
             {tableHead.map((ths) => (
@@ -37,12 +42,10 @@ const Table = ({ tableHead, data }) => {
             ))}
           </tr>
         </thead>
-        <tbody className={Styles.tablebody}>
-          {list}
-        </tbody>
+        <tbody className={Styles.tablebody}>{list}</tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Table
+export default Table;

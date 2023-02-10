@@ -5,10 +5,11 @@ import "./tab.css";
 // import Button from '../../components/button'
 
 // import { TabType } from '..'
-import {employeeTabs} from '../Tabs.js'
-import Refresh from 'public/refresh.png'
+import { adminTabs, employeeTabs } from "../Tabs.js";
+import { addminTabs } from "../Tabs.js";
+import Refresh from "public/refresh.png";
 // import Button from '../../components/button';
-import IconButton from '../../components/iconButton';
+import IconButton from "../../components/iconButton";
 // import {adminTabs} from '../Tabs.js'
 
 let tabs = employeeTabs;
@@ -17,11 +18,11 @@ function refresh() {
   window.location.reload();
 }
 
-
-export default function AppTab({tabName, childName}) {
+export default function AppTab({ tabName, childName, isAdmin = false }) {
   // console.log(tabs);
   let hasChild = false;
   let childTab = undefined;
+  isAdmin ? (tabs = adminTabs) : (tabs = employeeTabs);
   for (let i = 0; i < tabs.length; i++) {
     let tab = tabs[i];
     console.log(tab.text + " " + tabName);
@@ -38,8 +39,8 @@ export default function AppTab({tabName, childName}) {
   }
 
   let iconStyle = {
-    width: "2.5rem"
-  }
+    width: "2.5rem",
+  };
   return (
     <>
       <div className="tabSlide">
@@ -61,13 +62,21 @@ export default function AppTab({tabName, childName}) {
               </li>
             );
           })}
-          <li style={{width: "30vw", textAlign: "right"}}>
-            <IconButton icon={Refresh} iconStyle={iconStyle} children="Refresh" onClick={refresh}></IconButton>
+          <li style={{ width: "30vw", textAlign: "right" }}>
+            <IconButton
+              icon={Refresh}
+              iconStyle={iconStyle}
+              children="Refresh"
+              onClick={refresh}
+            ></IconButton>
           </li>
         </ul>
-        
-        {hasChild ? <div className='childTabs'><ChildTab childTabs={childTab} active={childName}/> </div> : null} 
-        
+
+        {hasChild ? (
+          <div className="childTabs">
+            <ChildTab childTabs={childTab} active={childName} />{" "}
+          </div>
+        ) : null}
       </div>
     </>
   );
