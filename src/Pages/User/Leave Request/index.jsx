@@ -7,7 +7,7 @@ import './index.css'
 
 export default function LeaveRequest({page_data}) {
     const Tab = {
-        parent: "Leave Request",
+        parent: "Request",
         child: undefined
     }
     return (

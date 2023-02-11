@@ -1,26 +1,12 @@
-// import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 
 import Router from "./Navigation/router";
+import { setUsername} from "./storage"
+
+setUsername("Not my name again");
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <div>
       <Router />
     </div>
@@ -29,9 +15,3 @@ function App() {
 
 export default App;
 
-window.addEventListener('DOMContentLoaded', function(){
-  var myDatepicker = document.querySelector('input[name="demo"]');
-  myDatepicker.DatePickerX.init({
-    // options here
-  });
-});

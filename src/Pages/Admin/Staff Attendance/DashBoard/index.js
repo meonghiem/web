@@ -310,8 +310,8 @@ const Dashboard = () => {
           </form>
           <div
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
+              paddingTop: "1rem",
+              paddingBottom: "1rem",
               height: "100%",
             }}
           >
