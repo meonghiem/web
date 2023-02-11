@@ -1,47 +1,39 @@
 import Button from "../../../../components/button";
-// import ReactDOM from 'react-dom';
 import Layout from "../../../../layout";
 import './index.css'
 import Logo512 from 'public/logo512.png'
-import { useEffect, useState } from "react";
 import axios from 'axios'
+import {  useEffect, useState } from "react";
+import {username, id} from "../../../../storage";
 
-const Data = {
-    name: "Long Long", 
-    gender: "Male",
-    dateOfBirth: "10/10/2001",
-    birthplace: "Hanoi",
-    maritalStatus: "....",
-    email: "abcd@gmail.com",
-    mobilePhone: "0123456789",
-    emergencyPhone: "0987654321",
-    address: "....."
+const url = "http://localhost:3001/api/user/show.php";
+const Tab = {
+    parent: "My Profile",
+    child: "Personal info"
 }
 
-const url = "http://localhost/restful_php_api/api/user/read.php"
+export default function PersonalInfo (){
 
+    const [data, setData] = useState({});
+    useEffect(() => {getData()}, [])
 
-// const [isDisabled, setIsDisabled] = useState(false);
-
-
-
-export default function PersonalInfo() {
-    const Tab = {
-        parent: "My Profile",
-        child: "Personal info"
+    function getData() {
+        axios.get(url + `?id=${id}`)
+        .then(res => {
+            console.log(res.data)
+            setData(res.data)
+        })
+        .catch(error => console.log(error))
     }
-    // data = Data;
-    const [data, setData] = useState({})
-
-    const getData = async () =>{
-        const data = await axios.get(url);
-        console.log(data.data.data[0])
-        setData(data.data.data[0])
+    
+    function sendData() {
+        axios.post(url, data)
+        .then(res => {
+            console.log(typeof res.data);
+            setData(res.data );
+        })
+        .catch(error => console.log(error))
     }
-
-    useEffect(() =>{
-        getData()
-    },[])
 
     function edit(e) {
         alert("edit");
@@ -51,7 +43,7 @@ export default function PersonalInfo() {
             a.disabled = false;
             a.style.border = "1px solid";
         }
-
+    
         let saveBtn = document.getElementById("save");
         saveBtn.hidden = false;
         e.currentTarget.hidden = true;
@@ -65,19 +57,19 @@ export default function PersonalInfo() {
             a.disabled = true;
             a.style.border = "0";
         }
-
+    
         for(let key in data) {
             data[key] = document.getElementById(key).value;
         }
-
-        alert(JSON.stringify(data))
         
         let editBtn = document.getElementById("edit");
         editBtn.hidden = false;
         e.currentTarget.hidden = true;
-    }
     
-    return (
+        sendData();
+    }
+
+    return ( data ? 
         <Layout tab={Tab} content= {
             <div className="p_outside">
                 
@@ -117,8 +109,8 @@ export default function PersonalInfo() {
 
                         <tr className="infoRow">
                             <td className="infoCell"> 
-                                <b>birthplace </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthplace"/>
+                                <b>Birthplace </b> <br />
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthPlace"/>
                             </td>
                             <td className="infoCell"> <b>Martital status </b> <br />
                                 <textarea type="text" className="inputBox" disabled={true} defaultValue={data.maritalStatus} id="maritalStatus"/> 
@@ -136,8 +128,8 @@ export default function PersonalInfo() {
                         </tr>
 
                         <tr className="infoRow">
-                            <td className="infoCell"> <b>mobilePhone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.mobilePhone} id="mobilePhone"/>
+                            <td className="infoCell"> <b>Phone </b> <br />
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.mobilePhone} id="mobliePhone"/>
                             </td>
                             <td className="infoCell"> <b>Emergency Phone </b> <br />
                                 <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emergencyPhone} id="emergencyPhone"/>
@@ -158,6 +150,7 @@ export default function PersonalInfo() {
             </div>
             }
         >
-        </Layout>
+        </Layout> : <button onClick={getData}>Refresh</button>
     );
+    
 }

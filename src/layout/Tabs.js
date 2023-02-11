@@ -1,6 +1,6 @@
 export let employeeTabs = [
   {
-    text: "Attendance Tracking",
+    text: "Attendance",
     url: "/attendance",
     active: false,
     child: undefined,
@@ -14,7 +14,7 @@ export let employeeTabs = [
       { c_text: "Staff info", c_url: "/myProfile/StaffInfo", c_active: false },
     ],
   },
-  { text: "Leave Request", url: "/request", active: false, child: undefined },
+  { text: "Request", url: "/request", active: false, child: undefined },
 ];
 
 export let adminTabs = [

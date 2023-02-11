@@ -1,5 +1,5 @@
 import * as React from "react";
-import Styles from "./table.module.css";
+import "./table.css";
 import Button from "../button";
 // import Button from '../button'
 
@@ -14,35 +14,30 @@ const Table = ({ tableHead, data, tableStyle }) => {
   let list = data.map((rows, index) => {
     console.log(rows);
     return (
-      <tr id={index} className={Styles.row} onClick={handleClickOnRow}>
-        {Object.entries(rows).map(([key, value]) =>
-          key !== "key" ? (
-            key === "action" ? (
-              <Button btnType="dark" children="Update"></Button>
-            ) : (
-              <td className={Styles.cell}>{value}</td>
-            )
-          ) : (
-            <></>
-          )
-        )}
+      <tr id={index} className="row" onClick={handleClickOnRow}  >
+        { 
+          Object.entries(rows).map( ([key, value]) => ( key !== "key" ? (
+            key === "button" ? <Button btnType="dark" children={value}></Button> : <td className="cell">{value}</td>
+          ) : <></> 
+          ) )
+        }
       </tr>
     );
   });
   // list += <Button btnType="table" ></Button>
   return (
-    <div style={tableStyle} className={Styles.outside}>
-      <table className={Styles.table} rules="none">
-        <thead className={Styles.tablehead}>
+    <div style={tableStyle} className="outside">
+      <table className="table" rules="none">
+        <thead className="tablehead">
           <tr>
             {tableHead.map((ths) => (
-              <th scope="col" className={Styles.cell}>
+              <th scope="col" className="cell">
                 {ths.title}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className={Styles.tablebody}>{list}</tbody>
+        <tbody className="tablebody">{list}</tbody>
       </table>
     </div>
   );

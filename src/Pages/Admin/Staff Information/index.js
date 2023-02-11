@@ -88,7 +88,8 @@ const StaffInfo = () => {
   console.log(show);
   const create = (e) => {
     console.log("create");
-    e.preventDefault();
+    // e.preventDefault();
+
     const data = e.target.elements;
     console.log(data);
     setShow(!show);
@@ -292,7 +293,7 @@ const StaffInfo = () => {
                 // paddingRight: "1rem",
                 background: "rgba(255,255,255,0.5)",
                 position: "fixed",
-                height: "100%",
+                height: "100vh",
                 width: "100%",
                 top: 0,
                 zIndex: "1",
@@ -310,7 +311,6 @@ const StaffInfo = () => {
                   border: "1px solid #D6D6D6",
                   borderRadius: "10px",
                   padding: "2rem",
-                  boxShadow: "",
                   // right: "10rem",
                   // margin: "0 auto",
                 }}
