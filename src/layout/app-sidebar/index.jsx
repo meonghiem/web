@@ -3,9 +3,33 @@ import avatar from "public/Kid.jpg";
 import companyLogo from "public/Pionero.png";
 import {ReactComponent as Vector} from "public/svg/Vector.svg";
 import{ ReactComponent as LogoutIcon} from "public/svg/logout_icon.svg";
+import {username} from '../../storage'
+import {  useEffect, useState } from "react";
+
 const Sidebar = function Sidebar({ data }) {
+
+  const [time, setTime] = useState(new Date());
+
+  useEffect(
+    () => {
+      const intervalId = setInterval(() => {
+        setTime(new Date());
+      }, 60000);
+      return () => {
+        clearInterval(intervalId)
+      }
+    } 
+  )
+
+  function formatTime() {
+    var hour = time.getHours();
+    var minute = time.getMinutes();
+    var realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute);
+    return realTime;
+  };
+
   const inClick = () => {
-    alert("In");
+    alert("In at " + formatTime());
     const btn = document.getElementById("in-btn");
     btn.style.display = "none";
     const box = document.getElementById("out-btn");
@@ -32,6 +56,8 @@ const Sidebar = function Sidebar({ data }) {
     const box = document.getElementById("rest-btn");
     box.style.display = "block";
   };
+
+  // var cur_date = new Date();
   return (
     <>
       <div className="container">
@@ -50,13 +76,13 @@ const Sidebar = function Sidebar({ data }) {
         </div>
 
         <div>
-          <h2 className="nameText">
-            <p>Welcome back,</p>
-            <p>Minh Dung</p>
-          </h2>
+          <h3 className="nameText">
+            <p>Welcome back</p>
+            <p>{username}</p>
+          </h3>
         </div>
         <div>
-          <h3 className="job">PM</h3>
+          <h1 className="job">{formatTime()} </h1>
         </div>
         {/* <hr className="w-[90%] mx-auto" /> */}
         <hr
@@ -68,10 +94,10 @@ const Sidebar = function Sidebar({ data }) {
             border: "1px solid white",
           }}
         ></hr>
-        <h2 className="totalTime">
+        <h3 className="totalTime">
           {/* lost pb-*/}
           <p>Total time today</p>
-        </h2>
+        </h3>
 
         <div
           style={{
@@ -102,13 +128,13 @@ const Sidebar = function Sidebar({ data }) {
               marginLeft: "0.5rem",
               marginRight: "0.5rem",
               color: "#ffffff",
-              fontSize: "1.5rem",
-              lineHeight: "2rem",
+              // fontSize: "1.5rem",
+              lineHeight: "1.5rem",
               fontWeight: "500",
               textAlign: "center",
             }}
-          >
-            05:54
+          > 12:00
+            {/* {username} */}
           </h1>
         </div>
         <div
@@ -187,7 +213,8 @@ const Sidebar = function Sidebar({ data }) {
               borderRadius: "0.25rem",
               borderBottomWidth: "4px",
               borderColor: "#047857",
-              cursor:"pointer"
+              cursor:"pointer",
+              display: "none"
 
             }}
             onClick={restClick}
@@ -284,14 +311,14 @@ const Sidebar = function Sidebar({ data }) {
           padding-top: 0.5rem;
           padding-bottom: 0.5rem;
           color: #ffffff;
-          font-size: 1rem;
-          line-height: 1.5rem;
+          // font-size: 1rem;
+          // line-height: 1.5rem;
           text-align: center;
         }
         .job {
           padding-top: 0.5rem;
           padding-bottom: 0.5rem;
-          font-size: 0.75rem;
+          // font-size: 1.2rem;
           line-height: 1rem;
           text-align: center;
           color: #ffffff;
@@ -299,7 +326,7 @@ const Sidebar = function Sidebar({ data }) {
         .totalTime {
           padding-top: 1.5rem;
           color: #ffffff;
-          font-size: 1rem;
+          // font-size: 1rem;
           line-height: 1.5rem;
           text-align: center;
         }

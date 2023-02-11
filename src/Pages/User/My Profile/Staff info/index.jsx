@@ -1,6 +1,10 @@
 import Layout from '../../../../layout'
 import './index.css'
+import axios from 'axios'
+import {  useEffect, useState } from "react";
+import {id} from "../../../../storage";
 // import Button from '../../../../components/button';
+const url = "http://localhost/restful_api/api/user/show.php";
 
 let Data = {
     jobTitle: "CEO",
@@ -21,14 +25,25 @@ let Data = {
     action: "...",
 }
 
-export default function StaffInfo({data}) {
+export default function StaffInfo() {
+
+    const [data, setData] = useState({});
+    useEffect(() => {getData()}, [])
     const Tab = {
         parent: "My Profile",
         child: "Staff info"
     }
-    data = Data;
+    
+    function getData() {
+        axios.post(url + `?id=${id}`, id)
+        .then(res => {
+            console.log(res.data)
+            setData(res.data)
+        })
+        .catch(error => console.log(error))
+    }
 
-    return (
+    return ( data ?
         <Layout tab={Tab} content={
             <div className='sInfo_outside'>
                 <table className='staffInfoTable' rules='none'>
@@ -39,7 +54,7 @@ export default function StaffInfo({data}) {
                     <tr className="infoRow">
                         <td className="staffInfoCell"> <b>Job Title</b> <br /> {data.jobTitle} </td>
                         <td className="staffInfoCell"> <b>User Type</b> <br /> {data.userType} </td>
-                        <td className="staffInfoCell"> <b>Job Description</b> <br /> {data.jobDes} </td>
+                        <td className="staffInfoCell"> <b>Job Description</b> <br /> {data.jobDescription} </td>
                     </tr>
                     
                     <tr className="infoRow">
@@ -81,6 +96,6 @@ export default function StaffInfo({data}) {
             }
         >
 
-        </Layout>
+        </Layout> : <button onClick={getData}>Refresh</button>
     );
 }

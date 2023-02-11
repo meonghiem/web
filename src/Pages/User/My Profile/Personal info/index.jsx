@@ -4,8 +4,9 @@ import './index.css'
 import Logo512 from 'public/logo512.png'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
+import {username, id} from "../../../../storage";
 
-const url = "http://localhost:8080/getUser";
+const url = "http://localhost:3001/api/user/show.php";
 const Tab = {
     parent: "My Profile",
     child: "Personal info"
@@ -17,8 +18,9 @@ export default function PersonalInfo (){
     useEffect(() => {getData()}, [])
 
     function getData() {
-        axios.get(url)
+        axios.get(url + `?id=${id}`)
         .then(res => {
+            console.log(res.data)
             setData(res.data)
         })
         .catch(error => console.log(error))
@@ -101,17 +103,17 @@ export default function PersonalInfo (){
                             </td>
                             <td className="infoCell"> 
                                 <b>Date of birth </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.dob} id="dob"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.dateOfBirth} id="dateOfBirth"/>
                             </td>
                         </tr>
 
                         <tr className="infoRow">
                             <td className="infoCell"> 
                                 <b>Birthplace </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthPlace} id="birthPlace"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthPlace"/>
                             </td>
                             <td className="infoCell"> <b>Martital status </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.marital} id="marital"/> 
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.maritalStatus} id="maritalStatus"/> 
                             </td>
                         </tr>
 
@@ -127,10 +129,10 @@ export default function PersonalInfo (){
 
                         <tr className="infoRow">
                             <td className="infoCell"> <b>Phone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.phone} id="phone"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.mobilePhone} id="mobliePhone"/>
                             </td>
                             <td className="infoCell"> <b>Emergency Phone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emerPhone} id="emerPhone"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emergencyPhone} id="emergencyPhone"/>
                             </td>
                         </tr>
 

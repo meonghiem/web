@@ -5,6 +5,7 @@ import {column, data} from '../../../Test';
 import Calendar from 'public/calendar.png'
 import './index.css'
 import axios from 'axios'
+import {username} from '../../../storage'
 
 
 let dayOfMonths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -27,9 +28,9 @@ function printDateChoice(from, to) {
 }
 function checkLeepYear(year) {
     let leepYear = 0;
-    if(year % 4 == 0) {
-        if(year % 100 == 0) {
-            if(year % 400 == 0)
+    if(year % 4 === 0) {
+        if(year % 100 === 0) {
+            if(year % 400 === 0)
                 leepYear = 1;
         }
         else
@@ -38,38 +39,25 @@ function checkLeepYear(year) {
     return leepYear;
 }
 
-const api = axios.create({baseURL: 'http://localhost:8080'});
+// const api = axios.create({baseURL: 'http://localhost:8080'});
 
 function checkDate() {
     var D = document.getElementById("day");
     var day = D.options[D.selectedIndex].value;
-    // if(day === "All") return true;
 
     var Y = document.getElementById("year");
     var year = Y.options[Y.selectedIndex].value;
 
     var M = document.getElementById("month");
     var month = M.options[M.selectedIndex].value;
-    // if(month == "All") {
-    //     return true;
-    // }
-
-    // alert(day + " " + month + " " + year);
 
     var thisMonth = dayOfMonths[month];
-    if(checkLeepYear(year) == 1 && month == 2) thisMonth = 29;
+    if(checkLeepYear(year) === 1 && month === 2) thisMonth = 29;
     if(day > thisMonth) {
         alert("Invalid date");
         return false
     }
     hideChoose();
-
-    // fetch('http://localhost:8080/check').
-    // api.get('/choose', {day, month, year})
-    // .then((res) => {
-    //     alert(res.data);
-    // })
-    // .catch(error => console.log(error))
 
     let data = {
         Day: day,
@@ -77,12 +65,6 @@ function checkDate() {
         Year: year
     }
 
-    // axios({
-    //     method: 'post',
-    //     url: 'http://localhost:8080/choose',
-    //     contentType: "application/json",
-    //     data: JSON.stringify(data),
-    // })
     axios.post('http://localhost:8080/choose', data)
     .then(res => {
         alert(JSON.stringify(res.data))
@@ -93,7 +75,7 @@ function checkDate() {
 
 export default function AttendanceTracking() {
     const Tab = {
-        parent: "Attendance Tracking",
+        parent: "Attendance",
         child: undefined
     }
 
@@ -102,13 +84,16 @@ export default function AttendanceTracking() {
             <div style={{
                 boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
                 padding: "1rem",
-                color: "#004b8f"
+                color: "#004b8f",
+                // fontSize: "2rem"
             }}>
-                <div>
+                <div style={{
+                    fontSize: "2rem"
+                }}>
                     
-                    <div id="choose" onClick={showChoose} style={{height: "4rem", width: "15rem", padding: "0", border: "1px solid", display: "flex", alignItems: "center", marginBottom: "1rem"}}>
-                        <div style={{width: "80%", textAlign: "center",  padding: "1rem", fontSize: "1.5rem"}}>Choose date</div>
-                        <div style={{width: "19%", textAlign: "right"}}><img src={Calendar} style={{width: "3rem"}}/> </div>
+                    <div id="choose" onClick={showChoose} style={{height: "5rem", width: "20rem", padding: "0", border: "solid 0.2rem", display: "flex", alignItems: "center", marginBottom: "1rem"}}>
+                        <div style={{width: "80%", textAlign: "center",  padding: "1rem"}}>Choose date</div>
+                        <div style={{width: "19%", textAlign: "right", padding: "1rem"}}> <img alt="Calendar" src={Calendar} style={{width: "3rem"}}/> </div>
                     </div>
 
                     <div id="dateChoose" hidden={true}>

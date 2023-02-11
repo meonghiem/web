@@ -1,11 +1,22 @@
+#choose {
+    height: 5rem;
+    width: 20rem; 
+    padding: 0;
+    border: solid 0.2rem; 
+    
+    display: "flex"; 
+    align-items: "center"; 
+    margin-bottom: "1rem";
+    /* font-size: 2rem; */
+}
 #choose:hover {
     cursor: pointer;
 }
 
 #dateChoose {
     background-color: rgba(205, 205, 205, 0.4);
-    filter: blur(8px);
-  -webkit-filter: blur(8px);
+    /* filter: blur(8px);
+  -webkit-filter: blur(8px); */
     position:fixed;
     width: 100vw;
     height: 100vh;

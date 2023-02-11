@@ -1,16 +1,13 @@
-// import clsx from 'clsx'
-// import Link from 'next/link'
+import * as React from "react";
 import ChildTab from "../app-childtab";
 import "./tab.css";
-// import Button from '../../components/button'
-
-// import { TabType } from '..'
 import { adminTabs, employeeTabs } from "../Tabs.js";
-import { addminTabs } from "../Tabs.js";
 import Refresh from "public/refresh.png";
-// import Button from '../../components/button';
 import IconButton from "../../components/iconButton";
-// import {adminTabs} from '../Tabs.js'
+
+// import {ReactComponent as My_profile } from "public/svg/My_profile.svg";
+// import Attendance from "public/attendance.png";
+// import Myprofile from "public/myprofile.png";
 
 let tabs = employeeTabs;
 
@@ -33,9 +30,6 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
         childTab = tab.child;
       }
     } else tab.active = false;
-    // console.log(tab.active)
-    // console.log(tab.child)
-    // console.log(tab.text)
   }
 
   let iconStyle = {
@@ -48,8 +42,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
           {tabs.map((tab) => {
             return (
               <li key={tab.text} className="tabChild">
-                <a href={`${tab.url}`}>
-                  <button
+                <a href={`${tab.url}`}
                     className={`tab
                     ${tab.active ? "tabActive" : "tabUnactive"}
                   `}
@@ -57,12 +50,11 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
                     type="button"
                   >
                     {tab.text}
-                  </button>
                 </a>
               </li>
             );
           })}
-          <li style={{ width: "30vw", textAlign: "right" }}>
+          <li style={{ width: "15vw", textAlign: "right" }}>
             <IconButton
               icon={Refresh}
               iconStyle={iconStyle}
