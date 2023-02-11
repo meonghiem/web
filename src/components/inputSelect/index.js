@@ -26,13 +26,13 @@ export default function InputSelect({ children, datas, idInput, inputStyle }) {
           width: "80%",
           marginTop: "-0.5rem",
         }}
-        defaultValue={datas[0]}
+        defaultValue={0}
       >
         {datas.map((data, index) => {
           return (
             <option
               key={index}
-              value={data}
+              value={index}
               style={{
                 paddingBottom: "2px",
                 paddingTop: "2px",

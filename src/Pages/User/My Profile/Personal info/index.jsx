@@ -57,7 +57,6 @@ export default function PersonalInfo (){
             a.disabled = true;
             a.style.border = "0";
         }
-    
         for(let key in data) {
             data[key] = document.getElementById(key).value;
         }

@@ -2,14 +2,14 @@ import React from "react";
 import Table from "../../../../components/table";
 import AppLayout from "../../../../layout";
 
-const data = [
+const data1 = [
   {
     key: "1",
     no: "1",
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "REST",
-    amount: "01:23",
+    time: "01:23",
     reason: "Quên rest",
   },
   {
@@ -18,7 +18,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "BACK",
-    amount: "02:45",
+    time: "02:45",
     reason: "Quên back",
   },
   {
@@ -27,7 +27,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -36,7 +36,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -45,7 +45,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -54,7 +54,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -63,7 +63,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -72,7 +72,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -81,7 +81,7 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
   {
@@ -90,34 +90,82 @@ const data = [
     requestType: "Hour Adjustment",
     requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
     adjustType: "OUT",
-    amount: "01:59",
+    time: "01:59",
     reason: "Quên out",
   },
 ];
 
-const columns = [
+const column1 = [
   {
     title: "No",
-    dataIndex: "employeeId",
-    key: "employeeId",
+    dataIndex: "no",
+    key: "no",
   },
   {
-    title: "Employee",
-    dataIndex: "employee",
-    key: "employee",
+    title: "Request Type",
+    dataIndex: "requesType",
+    key: "requestType",
   },
   {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
+    title: "Request Date",
+    dataIndex: "requesDate",
+    key: "requestDate",
   },
   {
-    title: "Hour This Month",
-    dataIndex: "hourThisMonth",
-    key: "hourThisMonth",
+    title: "Adjust Type",
+    dataIndex: "adjustType",
+    key: "adjustType",
+  },
+  {
+    title: "Time",
+    dataIndex: "time",
+    key: "time",
+  },
+  {
+    title: "Reason",
+    dataIndex: "reason",
+    key: "reason",
   },
 ];
 
-const WorkhourApproval = () => {};
+const column2 = column1;
+const data2 = data1;
+
+const WorkhourApproval = () => {
+  const Tab = {
+    parent: "Staff Attendance",
+    child: "Workhour Approval",
+  };
+  return (
+    <AppLayout
+      tab={Tab}
+      isAdmin={true}
+      content={
+        <div>
+          <div className="table1">
+            <div style={{ color: "#004B8F", fontWeight: "500" }}>
+              Pending Request
+            </div>
+            <Table
+              tableHead={column1}
+              data={data1}
+              tableStyle={{ height: "30vh", marginTop: "10px" }}
+            />
+          </div>
+          <div style={{ marginTop: "1.5rem" }} className="table2">
+            <div style={{ color: "#004B8F", fontWeight: "500" }}>
+              Completed Request
+            </div>
+            <Table
+              tableHead={column1}
+              data={data1}
+              tableStyle={{ height: "30vh", marginTop: "10px" }}
+            />
+          </div>
+        </div>
+      }
+    />
+  );
+};
 
 export default WorkhourApproval;

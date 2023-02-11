@@ -127,16 +127,30 @@ const numbers = [
   ["PENDING REQUEST", "70"],
 ];
 const Dashboard = () => {
-  const status = ["in", "out", "rest", "back"];
+  // const status = ["in", "out", "rest", "back"];
   const Tab = {
     parent: "Staff Attendance",
     child: "Dashboard",
+  };
+
+  const form = {
+    employeeId: "",
+    employee: "",
+    status: "",
   };
 
   numbers[0].push("#0F6FC6");
   numbers[1].push("#7DCA00");
   numbers[2].push("#FF0000");
   numbers[3].push("#FF9900");
+
+  const find = () => {
+    for (let key in form) {
+      form[key] = document.getElementById(key).value;
+    }
+    console.log("find");
+    console.log(form);
+  };
   return (
     <AppLayout
       tab={Tab}
@@ -208,7 +222,7 @@ const Dashboard = () => {
               </label>
               <input
                 type="text"
-                id="textId"
+                id="employeeId"
                 style={{
                   backgroundColor: "#F9FAFB",
                   color: "#111827",
@@ -236,7 +250,7 @@ const Dashboard = () => {
               </label>
               <input
                 type="text"
-                id="textId"
+                id="employee"
                 style={{
                   backgroundColor: "#F9FAFB",
                   color: "#111827",
@@ -277,18 +291,18 @@ const Dashboard = () => {
                   width: "80%",
                   marginTop: "-0.5rem",
                 }}
+                defaultValue={0}
               >
-                <option selected>IN</option>
-                <option value="OUT">OUT</option>
-                <option value="REST">REST</option>
-                <option value="BACK">BACK</option>
+                <option value={0}>IN</option>
+                <option value={1}>OUT</option>
               </select>
             </div>
 
             <div style={{ width: "100%" }}>
               <button
                 id="status"
-                type="text"
+                type="button"
+                onClick={() => find()}
                 style={{
                   backgroundColor: "#F9FAFB",
                   color: "#111827",
@@ -300,6 +314,7 @@ const Dashboard = () => {
                   display: "block",
                   width: "30%",
                   verticalAlign: "center",
+                  cursor: "pointer",
                 }}
               >
                 <Search

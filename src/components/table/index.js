@@ -12,15 +12,20 @@ function handleClickOnRow(e) {
 const Table = ({ tableHead, data, tableStyle }) => {
   //   console.log(data)
   let list = data.map((rows, index) => {
-    console.log(rows);
+    // console.log(rows);
     return (
-      <tr id={index} className="row" onClick={handleClickOnRow}  >
-        { 
-          Object.entries(rows).map( ([key, value]) => ( key !== "key" ? (
-            key === "button" ? <Button btnType="dark" children={value}></Button> : <td className="cell">{value}</td>
-          ) : <></> 
-          ) )
-        }
+      <tr id={index} className="row" onClick={handleClickOnRow}>
+        {Object.entries(rows).map(([key, value]) =>
+          key !== "key" ? (
+            key === "button" ? (
+              <Button btnType="dark" children={value}></Button>
+            ) : (
+              <td className="cell">{value}</td>
+            )
+          ) : (
+            <></>
+          )
+        )}
       </tr>
     );
   });
