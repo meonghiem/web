@@ -30,7 +30,7 @@ export default function Layout({ tab, content, isAdmin = false }) {
       <style>{`
         #wrapper {
           max-width: 100vw;
-          height: 100vh;
+          max-height: 100vh;
           // margin-top:2rem;
         }
         #main-content {

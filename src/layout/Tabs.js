@@ -20,7 +20,7 @@ export let employeeTabs = [
 export let adminTabs = [
   {
     text: "Staff Attendance",
-    url: "admin/staffAttendance",
+    url: "/admin/staffAttendance",
     active: true,
     child: [
       { c_text: "Dash Board", c_url: "/admin/staffAttendance", c_active: true },

@@ -29,9 +29,9 @@ function App() {
 
 export default App;
 
-window.addEventListener('DOMContentLoaded', function(){
-  var myDatepicker = document.querySelector('input[name="demo"]');
-  myDatepicker.DatePickerX.init({
-    // options here
-  });
-});
+// window.addEventListener('DOMContentLoaded', function(){
+//   var myDatepicker = document.querySelector('input[name="demo"]');
+//   myDatepicker.DatePickerX.init({
+//     // options here
+//   });
+// });

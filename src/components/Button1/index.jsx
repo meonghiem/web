@@ -1,6 +1,8 @@
-const Button = ({ children }) => {
+const Button = ({ children, buttonStyle, Function, typeButton = "button" }) => {
   return (
     <button
+    onClick={Function}
+    type = {typeButton}
       style={{
         // display: "inline-flex",
         paddingTop: "0.5rem",
@@ -13,8 +15,10 @@ const Button = ({ children }) => {
         width: "100%",
         background: "#004b8f",
         color: "white",
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: "pointer",
       }}
+
     //   className="inline-flex py-4 px-4 items-center w-full my-2 shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] bg-Secondary"
     >
       {children}

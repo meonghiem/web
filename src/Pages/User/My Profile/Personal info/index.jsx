@@ -3,29 +3,45 @@ import Button from "../../../../components/button";
 import Layout from "../../../../layout";
 import './index.css'
 import Logo512 from 'public/logo512.png'
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 const Data = {
     name: "Long Long", 
     gender: "Male",
-    dob: "10/10/2001",
-    birthPlace: "Hanoi",
-    marital: "....",
+    dateOfBirth: "10/10/2001",
+    birthplace: "Hanoi",
+    maritalStatus: "....",
     email: "abcd@gmail.com",
-    phone: "0123456789",
-    emerPhone: "0987654321",
+    mobilePhone: "0123456789",
+    emergencyPhone: "0987654321",
     address: "....."
 }
+
+const url = "http://localhost/restful_php_api/api/user/read.php"
+
 
 // const [isDisabled, setIsDisabled] = useState(false);
 
 
 
-export default function PersonalInfo({data}) {
+export default function PersonalInfo() {
     const Tab = {
         parent: "My Profile",
         child: "Personal info"
     }
-    data = Data;
+    // data = Data;
+    const [data, setData] = useState({})
+
+    const getData = async () =>{
+        const data = await axios.get(url);
+        console.log(data.data.data[0])
+        setData(data.data.data[0])
+    }
+
+    useEffect(() =>{
+        getData()
+    },[])
 
     function edit(e) {
         alert("edit");
@@ -95,17 +111,17 @@ export default function PersonalInfo({data}) {
                             </td>
                             <td className="infoCell"> 
                                 <b>Date of birth </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.dob} id="dob"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.dateOfBirth} id="dateOfBirth"/>
                             </td>
                         </tr>
 
                         <tr className="infoRow">
                             <td className="infoCell"> 
-                                <b>Birthplace </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthPlace} id="birthPlace"/>
+                                <b>birthplace </b> <br />
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthplace"/>
                             </td>
                             <td className="infoCell"> <b>Martital status </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.marital} id="marital"/> 
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.maritalStatus} id="maritalStatus"/> 
                             </td>
                         </tr>
 
@@ -120,11 +136,11 @@ export default function PersonalInfo({data}) {
                         </tr>
 
                         <tr className="infoRow">
-                            <td className="infoCell"> <b>Phone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.phone} id="phone"/>
+                            <td className="infoCell"> <b>mobilePhone </b> <br />
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.mobilePhone} id="mobilePhone"/>
                             </td>
                             <td className="infoCell"> <b>Emergency Phone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emerPhone} id="emerPhone"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emergencyPhone} id="emergencyPhone"/>
                             </td>
                         </tr>
 

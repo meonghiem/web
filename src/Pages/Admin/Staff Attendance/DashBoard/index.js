@@ -196,7 +196,7 @@ const Dashboard = () => {
           >
             <div style={{ width: "100%" }}>
               <label
-                for="textId"
+                htmlFor="textId"
                 style={{
                   color: "#004b8f",
                   marginBottom: "-0.5rem",
@@ -224,7 +224,7 @@ const Dashboard = () => {
             </div>
             <div style={{ width: "100%" }}>
               <label
-                for="textName"
+                htmlFor="textName"
                 style={{
                   color: "#004b8f",
                   marginBottom: "-0.8rem",
@@ -252,7 +252,7 @@ const Dashboard = () => {
             </div>
             <div style={{ width: "100%" }}>
               <label
-                for="status"
+                htmlFor="status"
                 style={{
                   color: "#004b8f",
                   marginBottom: "-0.5rem",
@@ -310,8 +310,8 @@ const Dashboard = () => {
           </form>
           <div
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
+              paddingTop: "1rem",
+              paddingBottom: "1rem",
               height: "100%",
             }}
           >
