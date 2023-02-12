@@ -17,6 +17,7 @@
 
   background-color: #004b8f;
   color: #ffffff;
+  border-color: #ffffff;
 }
 
 .dark:hover {
@@ -28,6 +29,7 @@
   
   background-color: #ffffff;
   color: #004b8f ;
+  border-color: #004b8f;
 }
 
 .light:hover {

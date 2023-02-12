@@ -4,12 +4,15 @@ import "./tab.css";
 import { adminTabs, employeeTabs } from "../Tabs.js";
 import Refresh from "public/refresh.png";
 import IconButton from "../../components/iconButton";
+import { type } from "../../storage";
 
 // import {ReactComponent as My_profile } from "public/svg/My_profile.svg";
 // import Attendance from "public/attendance.png";
 // import Myprofile from "public/myprofile.png";
 
-let tabs = employeeTabs;
+let tabs;
+if(type === "user") tabs = employeeTabs;
+if(type === "admin") tabs = adminTabs;
 
 function refresh() {
   window.location.reload();
@@ -19,7 +22,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
   // console.log(tabs);
   let hasChild = false;
   let childTab = undefined;
-  isAdmin ? (tabs = adminTabs) : (tabs = employeeTabs);
+  // isAdmin ? (tabs = adminTabs) : (tabs = employeeTabs);
   for (let i = 0; i < tabs.length; i++) {
     let tab = tabs[i];
     // console.log(tab.text + " " + tabName);
