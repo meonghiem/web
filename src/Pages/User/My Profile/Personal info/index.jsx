@@ -4,7 +4,7 @@ import './index.css'
 import Logo512 from 'public/logo512.png'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {username, id} from "../../../../storage";
+import {username, employeeID} from "../../../../storage";
 
 const url = "http://localhost:3001/api/user/show.php";
 const Tab = {
@@ -18,7 +18,7 @@ export default function PersonalInfo (){
     useEffect(() => {getData()}, [])
 
     function getData() {
-        axios.get(url + `?id=${id}`)
+        axios.get(url + `?id=${employeeID}`)
         .then(res => {
             console.log(res.data)
             setData(res.data)

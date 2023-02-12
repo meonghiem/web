@@ -1,4 +1,5 @@
-
+let employeeID
+let type = "admin"
 
 let username
 let id = 4
@@ -7,4 +8,13 @@ function setUsername(name) {
     username = name;
 }
 
-export {username, id, setUsername}
+function setEmployeeId(id) {
+    employeeID = id;
+}
+
+function setType(t) {
+    type = t;
+}
+
+
+export {username, employeeID, setUsername, setEmployeeId, type, setType}

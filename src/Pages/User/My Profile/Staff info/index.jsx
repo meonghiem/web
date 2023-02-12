@@ -2,7 +2,7 @@ import Layout from '../../../../layout'
 import './index.css'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {id} from "../../../../storage";
+import {employeeID} from "../../../../storage";
 // import Button from '../../../../components/button';
 const url = "http://localhost/restful_api/api/user/show.php";
 
@@ -35,7 +35,7 @@ export default function StaffInfo() {
     }
     
     function getData() {
-        axios.post(url + `?id=${id}`, id)
+        axios.post(url + `?id=${employeeID}`, employeeID)
         .then(res => {
             console.log(res.data)
             setData(res.data)
