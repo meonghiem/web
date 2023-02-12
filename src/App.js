@@ -1,9 +1,10 @@
 // import "./App.css";
 
 import Router from "./Navigation/router";
-import { setUsername } from "./storage";
+import { setUsername, setType } from "./storage";
 
 setUsername("Not my name again");
+// setType("none");
 
 function App() {
   return (

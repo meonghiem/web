@@ -5,6 +5,7 @@ import {ReactComponent as Vector} from "public/svg/Vector.svg";
 import{ ReactComponent as LogoutIcon} from "public/svg/logout_icon.svg";
 import {username} from '../../storage'
 import {  useEffect, useState } from "react";
+import { type, setType } from "../../storage";
 
 const Sidebar = function Sidebar({ data }) {
 
@@ -28,6 +29,11 @@ const Sidebar = function Sidebar({ data }) {
     return realTime;
   };
 
+  function logout() {
+    setType("none");
+    setTime(new Date());
+  }
+
   const inClick = () => {
     alert("In at " + formatTime());
     const btn = document.getElementById("in-btn");
@@ -35,29 +41,15 @@ const Sidebar = function Sidebar({ data }) {
     const box = document.getElementById("out-btn");
     box.style.display = "block";
   };
+  
   const outClick = () => {
-    alert("Out");
+    alert("Out at " + formatTime());
     const btn = document.getElementById("out-btn");
     btn.style.display = "none";
     const box = document.getElementById("in-btn");
     box.style.display = "block";
   };
-  const restClick = () => {
-    alert("Rest");
-    const btn = document.getElementById("rest-btn");
-    btn.style.display = "none";
-    const box = document.getElementById("back-btn");
-    box.style.display = "block";
-  };
-  const backClick = () => {
-    alert("Back");
-    const btn = document.getElementById("back-btn");
-    btn.style.display = "none";
-    const box = document.getElementById("rest-btn");
-    box.style.display = "block";
-  };
 
-  // var cur_date = new Date();
   return (
     <>
       <div className="container">
@@ -95,7 +87,6 @@ const Sidebar = function Sidebar({ data }) {
           }}
         ></hr>
         <h3 className="totalTime">
-          {/* lost pb-*/}
           <p>Total time today</p>
         </h3>
 
@@ -107,22 +98,7 @@ const Sidebar = function Sidebar({ data }) {
           }}
           className="flex items-center justify-center"
         >
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 mx-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg> */}
           <Vector />
-          {/* <h1 className="text-2xl font-medium text-center text-white mx-2"> */}
           <h1
             style={{
               marginLeft: "0.5rem",
@@ -190,62 +166,6 @@ const Sidebar = function Sidebar({ data }) {
             Out
           </button>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 12,
-            paddingBottom: 36,
-          }}
-        >
-          <button
-            id="rest-btn"
-            // className="w-1/2 px-4 py-2 font-bold text-white bg-green-500 border-b-4 border-green-700 rounded hover:bg-green-400 hover:border-green-500"
-            style={{
-              paddingTop: "0.5rem",
-              paddingBottom: "0.5rem",
-              paddingLeft: "1rem",
-              paddingRight: "1rem",
-              backgroundColor: "#10B981",
-              color: "#ffffff",
-              fontWeight: "700",
-              width: "50%",
-              borderRadius: "0.25rem",
-              borderBottomWidth: "4px",
-              borderColor: "#047857",
-              cursor:"pointer",
-              display: "none"
-
-            }}
-            onClick={restClick}
-          >
-            Rest
-          </button>
-          <button
-            id="back-btn"
-            // className="hidden w-1/2 px-4 py-2 font-bold text-white bg-yellow-500 border-b-4 border-yellow-700 rounded hover:bg-yellow-400 hover:border-yellow-500"
-            style={{
-              display: "none",
-              paddingTop: "0.5rem",
-              paddingBottom: "0.5rem",
-              paddingLeft: "1rem",
-              paddingRight: "1rem",
-              backgroundColor: "#F59E0B",
-              color: "#ffffff",
-              fontWeight: "700",
-              width: "50%",
-              borderRadius: "0.25rem",
-              borderBottomWidth: "4px",
-              borderColor: "#B45309",
-              cursor:"pointer"
-
-            }}
-            onClick={backClick}
-          >
-            Back
-          </button>
-        </div>
-        {/* <div className="bottom-4 mt-[200px]"> */}
         <div style={{ bottom: "1rem", marginTop: "100px" }}>
           <hr
             style={{
@@ -287,7 +207,7 @@ const Sidebar = function Sidebar({ data }) {
               Log out
             </button> */}
 
-            <button style={{ background: "#004b8f", border: "none",paddingLeft: "1rem", cursor:"pointer"  }} className="pl-4">
+            <button onClick={logout} style={{ background: "#004b8f", border: "none",paddingLeft: "1rem", cursor:"pointer"  }} className="pl-4">
               {/* <LogoutIcon></LogoutIcon> */}
               <LogoutIcon />
             </button>

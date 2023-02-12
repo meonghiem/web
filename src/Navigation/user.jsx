@@ -1,24 +1,20 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Login from '../Pages/User/Login/Login'
 import AttendanceTracking from '../Pages/User/Attendance Tracking'
 import PersonalInfo from '../Pages/User/My Profile/Personal info'
 import StaffInfo from '../Pages/User/My Profile/Staff info'
 import LeaveRequest from '../Pages/User/Leave Request'
+import Notfound from '../Pages/Error'
 
 const User = () =>{
     return (
         <Routes>
-        <Route
-          path=""
-          element={
-            true ? <Navigate to={'/login'} /> : <Navigate to={'/attendance'} />
-          }
-        />
-        <Route path="login" element={<Login />} />
+        <Route path="/" element={ <Navigate to={'/attendance'} />} />
+        <Route path="/login" element={ <Navigate to={'/attendance'} />} />
         <Route path='/attendance/*' element={<AttendanceTracking />} />
         <Route path='/myProfile' element={<PersonalInfo />} />
         <Route path='/myProfile/staffInfo' element={<StaffInfo />} />
-        <Route path='/request' element={<LeaveRequest />} />
+        <Route path='/request/*' element={<LeaveRequest />} />
+        <Route path="*" element={<Notfound></Notfound>}/>
 
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
