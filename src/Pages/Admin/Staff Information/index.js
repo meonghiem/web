@@ -4,8 +4,11 @@ import AppLayout from "../../../layout";
 import { ReactComponent as Search } from "public/svg/search.svg";
 import Button from "../../../components/Button1";
 import { useState } from "react";
+import useModal from "../../../hook/useModal";
 import InputText from "../../../components/inputText";
 import InputSelect from "../../../components/inputSelect";
+import Modal from "../../../components/modal";
+import axios from "axios";
 
 const data = [];
 for (let i = 0; i < 30; ++i) {
@@ -20,7 +23,7 @@ for (let i = 0; i < 30; ++i) {
     action: "",
   });
 }
-const url = "http://localhost/restful_php_api/api/user/create.php";
+const url = "http://localhost/restful_php_api/api/account/create.php";
 
 const column = [
   {
@@ -61,16 +64,11 @@ const StaffInfo = () => {
   };
 
   let form = {
-    email: "",
-    name: "",
-    gender: "",
-    dateOfBirth: "",
-    birthplace: "",
-    maritalStatus: "",
-    mobilePhone: "",
-    address: "",
+    username: "",
+    password: "",
     employeeId: "",
     userType: "",
+    // accountStatus: 1,
     jobTitle: "",
     jobDescription: "",
     // emergencyPhone: "",
@@ -79,7 +77,6 @@ const StaffInfo = () => {
     office: "",
     education: "",
     language: "",
-    hiredDate: "",
   };
 
   let dataSearch = {
@@ -90,8 +87,10 @@ const StaffInfo = () => {
   };
 
   const [show, setShow] = useState(false);
+  // const { isShowing, toggle } = useModal();
+  // const [text, setText] = useState("");
   console.log(show);
-  const create = (e) => {
+  const create = async (e) => {
     console.log("create");
     // e.preventDefault();
 
@@ -99,7 +98,12 @@ const StaffInfo = () => {
     for (let key in form) {
       form[key] = document.getElementById(key).value;
     }
+    form.accStatus = 1;
+    const dataReturn = await axios.post(url, form);
+    console.log("so lan");
+    alert(dataReturn.data[1]);
     console.log(form);
+    console.log(dataReturn);
     setShow(!show);
   };
 
@@ -360,11 +364,16 @@ const StaffInfo = () => {
                     }}
                   >
                     <div>Create New User</div>
-                    <div style={{ fontWeight: "300", fontSize: "1.3rem" }}>
-                      Basic info
+                    <div
+                      style={{
+                        fontWeight: "300",
+                        fontSize: "1.3rem",
+                      }}
+                    >
+                      Account
                     </div>
                   </div>
-                  <InputText
+                  {/* <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
@@ -373,40 +382,44 @@ const StaffInfo = () => {
                     idInput="email"
                   >
                     Email
-                  </InputText>
+                  </InputText> */}
                   <InputText
-                    inputStyle={{ width: "100%", marginTop: "-1rem" }}
-                    idInput="name"
+                    inputStyle={{
+                      width: "100%",
+                      marginTop: "-1rem",
+                      gridColumnStart: "1",
+                    }}
+                    idInput="username"
                   >
-                    Name
+                    Username
                   </InputText>
-                  <InputSelect
+                  {/* <InputSelect
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="gender"
                     datas={["MALE", "FEMALE"]}
                   >
                     Gender
-                  </InputSelect>
+                  </InputSelect> */}
                   <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
-                    idInput="dateOfBirth"
+                    idInput="password"
                   >
-                    Date Of Birth
+                    Password
                   </InputText>
-                  <InputText
+                  {/* <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="birthplace"
                   >
                     BirthPlace
-                  </InputText>
-                  <InputSelect
+                  </InputText> */}
+                  {/* <InputSelect
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="maritalStatus"
                     datas={["Single", "Complicated", "Marriaged"]}
                   >
                     Marital Status
-                  </InputSelect>
-                  <InputText
+                  </InputSelect> */}
+                  {/* <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="mobilePhone"
                   >
@@ -417,35 +430,42 @@ const StaffInfo = () => {
                     idInput="address"
                   >
                     Address
-                  </InputText>
-                  <div>
-                    <div style={{ fontWeight: "300", fontSize: "1.3rem" }}>
-                      Work info
-                    </div>
-                  </div>
+                  </InputText> */}
+                  <InputSelect
+                    inputStyle={{
+                      width: "100%",
+                      marginTop: "-1rem",
+                    }}
+                    datas={["User", "Admin"]}
+                    idInput="userType"
+                  >
+                    User Type
+                  </InputSelect>
                   <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
-                      gridColumnStart: "1",
                     }}
                     idInput="employeeId"
                   >
                     Employee ID
                   </InputText>
+                  <div style={{ gridColumnStart: "1" }}>
+                    <div
+                      style={{
+                        fontWeight: "300",
+                        fontSize: "1.3rem",
+                      }}
+                    >
+                      Work info
+                    </div>
+                  </div>
+
                   <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
-                    }}
-                    idInput="userType"
-                  >
-                    User Type
-                  </InputText>
-                  <InputText
-                    inputStyle={{
-                      width: "100%",
-                      marginTop: "-1rem",
+                      gridColumnStart: "1",
                     }}
                     idInput="jobTitle"
                   >
@@ -506,7 +526,7 @@ const StaffInfo = () => {
                   >
                     Education
                   </InputText>
-                  <InputText
+                  {/* <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
@@ -514,7 +534,7 @@ const StaffInfo = () => {
                     idInput="performanceReview"
                   >
                     Performance Review
-                  </InputText>
+                  </InputText> */}
                   <InputText
                     inputStyle={{
                       width: "100%",
@@ -524,7 +544,7 @@ const StaffInfo = () => {
                   >
                     Language
                   </InputText>
-                  <InputText
+                  {/* <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
@@ -532,8 +552,8 @@ const StaffInfo = () => {
                     idInput="hiredDate"
                   >
                     Hired Date
-                  </InputText>
-                  <InputSelect
+                  </InputText> */}
+                  {/* <InputSelect
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
@@ -542,7 +562,7 @@ const StaffInfo = () => {
                     datas={["Active", "InActive"]}
                   >
                     Account Status
-                  </InputSelect>
+                  </InputSelect> */}
                   {/* <div
                     style={{
                       gridColumnStart: "3",
@@ -594,6 +614,8 @@ const StaffInfo = () => {
               </div>
             </div>
           )}
+
+          {/* <Modal isShowing={isShowing} hide={toggle} text={text} /> */}
         </>
       }
     />
