@@ -5,6 +5,9 @@ import WorkhourApproval from '../Pages/Admin/Staff Attendance/Workhour Approval'
 import LeaveApproval from '../Pages/Admin/Staff Attendance/Leave Approval'
 import StaffInfo from '../Pages/Admin/Staff Information'
 import Notfound from '../Pages/Error'
+import AttendanceTracking from '../Pages/User/Attendance Tracking'
+import PersonalInfo from '../Pages/User/My Profile/Personal info'
+import MyStaffInfo from '../Pages/User/My Profile/Staff info'
 
 
 const Admin = () => {
@@ -17,6 +20,9 @@ const Admin = () => {
           <Route path="/staffAttendance/workhourApproval" element={<WorkhourApproval />}/>
           <Route path="/staffAttendance/leaveApproval" element={<LeaveApproval />}/>
           <Route path="/staffInfo" element={<StaffInfo />}/>
+          <Route path='/attendance/*' element={<AttendanceTracking />} />
+          <Route path='/myProfile' element={<PersonalInfo />} />
+          <Route path='/myProfile/staffInfo' element={<MyStaffInfo />} />
           <Route path="*" element={<Notfound></Notfound>}/>
           
         </Routes>
