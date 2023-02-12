@@ -60,7 +60,7 @@ const StaffInfo = () => {
     parent: "Staff Information",
   };
 
-  const [form, setForm] = useState({
+  let form = {
     email: "",
     name: "",
     gender: "",
@@ -73,16 +73,21 @@ const StaffInfo = () => {
     userType: "",
     jobTitle: "",
     jobDescription: "",
-    emergencyPhone: "",
+    // emergencyPhone: "",
     department: "",
     skill: "",
     office: "",
     education: "",
-    performanceReview: 0,
     language: "",
     hiredDate: "",
-    accountStatus: 0,
-  });
+  };
+
+  let dataSearch = {
+    employeeId: "",
+    employee: "",
+    department: "",
+    accountStatus: "",
+  };
 
   const [show, setShow] = useState(false);
   console.log(show);
@@ -90,14 +95,24 @@ const StaffInfo = () => {
     console.log("create");
     // e.preventDefault();
 
-    const data = e.target.elements;
-    console.log(data);
+    // const data = e.target.elements;
+    for (let key in form) {
+      form[key] = document.getElementById(key).value;
+    }
+    console.log(form);
     setShow(!show);
   };
 
   const closeAndAddStaff = () => {
     console.log("close");
     setShow(!show);
+  };
+
+  const search = () => {
+    for (let key in dataSearch) {
+      dataSearch[key] = document.getElementById(key).value;
+    }
+    console.log(dataSearch);
   };
 
   return (
@@ -120,7 +135,7 @@ const StaffInfo = () => {
               >
                 <div style={{ width: "100%" }}>
                   <label
-                    htmlFor="textId"
+                    htmlFor="employeeId"
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.5rem",
@@ -132,7 +147,7 @@ const StaffInfo = () => {
                   </label>
                   <input
                     type="text"
-                    id="textId"
+                    id="employeeId"
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -148,7 +163,7 @@ const StaffInfo = () => {
                 </div>
                 <div style={{ width: "100%" }}>
                   <label
-                    htmlFor="textName"
+                    htmlFor="employee"
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.8rem",
@@ -160,7 +175,7 @@ const StaffInfo = () => {
                   </label>
                   <input
                     type="text"
-                    id="textId"
+                    id="employee"
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -176,7 +191,7 @@ const StaffInfo = () => {
                 </div>
                 <div style={{ width: "100%" }}>
                   <label
-                    htmlFor="textName"
+                    htmlFor="department"
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.8rem",
@@ -188,7 +203,7 @@ const StaffInfo = () => {
                   </label>
                   <input
                     type="text"
-                    id="textId"
+                    id="department"
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -202,9 +217,9 @@ const StaffInfo = () => {
                     }}
                   />
                 </div>
-                <div style={{ width: "100%" }}>
+                {/* <div style={{ width: "100%" }}>
                   <label
-                    htmlFor="textName"
+                    htmlFor="accountStatus"
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.8rem",
@@ -216,7 +231,7 @@ const StaffInfo = () => {
                   </label>
                   <input
                     type="text"
-                    id="textId"
+                    id="accountStatus"
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -229,12 +244,21 @@ const StaffInfo = () => {
                       marginTop: "-0.5rem",
                     }}
                   />
-                </div>
+                </div> */}
+                <InputSelect
+                  idInput="accountStatus"
+                  datas={["INACTIVE", "ACTIVE"]}
+                >
+                  Account Status
+                </InputSelect>
 
                 <div style={{ width: "100%" }}>
                   <button
-                    id="status"
-                    type="text"
+                    id="search"
+                    type="button"
+                    onClick={() => {
+                      search();
+                    }}
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -283,6 +307,11 @@ const StaffInfo = () => {
                   </Button>
                 </div>
               </div>
+              <Table
+                tableHead={column}
+                data={data}
+                tableStyle={{ marginTop: "1rem" }}
+              />
             </div>
           )}
 
@@ -353,20 +382,20 @@ const StaffInfo = () => {
                   </InputText>
                   <InputSelect
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
-                    idInput={"gender"}
+                    idInput="gender"
                     datas={["MALE", "FEMALE"]}
                   >
                     Gender
                   </InputSelect>
                   <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
-                    idInput="DOB"
+                    idInput="dateOfBirth"
                   >
                     Date Of Birth
                   </InputText>
                   <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
-                    idInput="birthPlace"
+                    idInput="birthplace"
                   >
                     BirthPlace
                   </InputText>
@@ -431,16 +460,25 @@ const StaffInfo = () => {
                   >
                     Job Description
                   </InputText>
-                  <InputSelect
+                  <InputText
                     inputStyle={{
                       width: "100%",
                       marginTop: "-1rem",
                     }}
-                    idInput="deparment"
+                    idInput="department"
+                  >
+                    Department
+                  </InputText>
+                  {/* <InputSelect
+                    inputStyle={{
+                      width: "100%",
+                      marginTop: "-1rem",
+                    }}
+                    idInput="department"
                     datas={["PM", "DEV"]}
                   >
                     Department
-                  </InputSelect>
+                  </InputSelect> */}
                   <InputText
                     inputStyle={{
                       width: "100%",

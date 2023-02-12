@@ -22,7 +22,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
   isAdmin ? (tabs = adminTabs) : (tabs = employeeTabs);
   for (let i = 0; i < tabs.length; i++) {
     let tab = tabs[i];
-    console.log(tab.text + " " + tabName);
+    // console.log(tab.text + " " + tabName);
     if (tab.text === tabName) {
       tab.active = true;
       if (tab.active === true && tab.child !== undefined) {
@@ -42,14 +42,15 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
           {tabs.map((tab) => {
             return (
               <li key={tab.text} className="tabChild">
-                <a href={`${tab.url}`}
-                    className={`tab
+                <a
+                  href={`${tab.url}`}
+                  className={`tab
                     ${tab.active ? "tabActive" : "tabUnactive"}
                   `}
-                    id="profile-tab"
-                    type="button"
-                  >
-                    {tab.text}
+                  id="profile-tab"
+                  type="button"
+                >
+                  {tab.text}
                 </a>
               </li>
             );
