@@ -41,7 +41,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
   };
   return (
     <>
-      <div className="tabSlide isDesktop">
+      <div className="tabSlide">
         <ul id="myTab">
           {/* <li>
             <IconButton
@@ -53,18 +53,41 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
             </li> */}
           {tabs.map((tab) => {
             return (
-              <li key={tab.text} className="tabChild">
-                <a
-                  href={`${tab.url}`}
-                  className={`tab
+              <>
+                <li key={tab.text} className="tabChild isDesktopTab">
+                  <a
+                    href={`${tab.url}`}
+                    className={`tab
                     ${tab.active ? "tabActive" : "tabUnactive"}
                   `}
-                  // className="profile-tab"
-                  type="button"
+                    // className="profile-tab"
+                    type="button"
+                  >
+                    {tab.text}
+                  </a>
+                </li>
+                <li
+                  key={tab.text}
+                  className="tabChild isMobileTab"
+                  style={{ paddingRight: "10px" }}
                 >
-                  {tab.text}
-                </a>
-              </li>
+                  <a
+                    href={`${tab.url}`}
+                    type="button"
+                    className={`tabRes ${
+                      tab.active ? "tabActive" : "tabUnactive"
+                    }`}
+                  >
+                    icon
+                    {/* {{tab.text} == "Staff "} */}
+                    {/* {tab.text} */}
+                    {/* <i
+                      style={{ color: "white" }}
+                      class="fa-sharp fa-solid fa-clock"
+                    ></i> */}
+                  </a>
+                </li>
+              </>
             );
           })}
         </ul>

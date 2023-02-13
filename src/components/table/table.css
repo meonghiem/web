@@ -39,7 +39,9 @@
   font-size: 1.3rem;
   text-transform: uppercase;
   text-align: center;
-  position: sticky;
+  /* position: sticky; */
+  /* position:absolute; */
+  /* display:table; */
   top: 0px;
   margin: 0;
 }

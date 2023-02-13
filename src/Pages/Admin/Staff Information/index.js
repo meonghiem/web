@@ -10,8 +10,8 @@ import InputSelect from "../../../components/inputSelect";
 import Modal from "../../../components/modal";
 import axios from "axios";
 
-const url = "http://localhost/restful_php_api/api/admin/addAccount.php";
-const url1 = "http://localhost/restful_php_api/api/admin/getStaffTable.php";
+const url = "http://localhost:3001/admin/addAccount.php";
+const url1 = "http://localhost:3001/admin/getStaffTable.php";
 
 const StaffInfo = () => {
   const column = [
