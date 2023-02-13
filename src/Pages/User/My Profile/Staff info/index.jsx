@@ -2,9 +2,9 @@ import Layout from '../../../../layout'
 import './index.css'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {employeeID} from "../../../../storage";
+import {type, employeeID} from "../../../../storage";
 // import Button from '../../../../components/button';
-const url = "http://localhost/restful_api/api/user/show.php";
+const url = "http://localhost:3001/staff_info";
 
 let Data = {
     jobTitle: "CEO",
@@ -35,7 +35,7 @@ export default function StaffInfo() {
     }
     
     function getData() {
-        axios.post(url + `?id=${employeeID}`, employeeID)
+        axios.get(url + `/show.php?employeeId=${employeeID}`)
         .then(res => {
             console.log(res.data)
             setData(res.data)
@@ -53,7 +53,7 @@ export default function StaffInfo() {
 
                     <tr className="infoRow">
                         <td className="staffInfoCell"> <b>Job Title</b> <br /> {data.jobTitle} </td>
-                        <td className="staffInfoCell"> <b>User Type</b> <br /> {data.userType} </td>
+                        <td className="staffInfoCell"> <b>User Type</b> <br /> {type} </td>
                         <td className="staffInfoCell"> <b>Job Description</b> <br /> {data.jobDescription} </td>
                     </tr>
                     
@@ -70,8 +70,8 @@ export default function StaffInfo() {
                     </tr>
 
                     <tr className="infoRow">
-                        <td className="staffInfoCell"> <b>Termination Date</b> <br /> {data.terminationDate} </td>
-                        <td className="staffInfoCell"> <b>Performance Review</b> <br /> {data.performanceReview} </td>
+                        <td className="staffInfoCell"> <b>Termination Date</b> <br /> ---------- </td>
+                        <td className="staffInfoCell"> <b>Performance Review</b> <br /> {data.perfomanceReview} </td>
                         <td className="staffInfoCell"> <b>Language</b> <br /> {data.language} </td>
                     </tr>
 
@@ -80,7 +80,7 @@ export default function StaffInfo() {
                     </tr>
 
                     <tr className='infoRow'>
-                        <td className="staffInfoCell"> <b>Date</b> <br /> {data.date} </td>
+                        <td className="staffInfoCell"> <b>Worked date</b> <br /> {data.date} </td>
                         <td className="staffInfoCell"> <b>Detail</b> <br /> {data.detail} </td>
                     
                     </tr>

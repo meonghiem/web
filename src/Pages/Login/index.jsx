@@ -3,10 +3,8 @@
 import React from 'react'
 import styles from './Login.module.css'
 import { useState } from 'react';
-import { type,setType, setUsername, setEmployeeId } from '../../storage'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hook/AuthProvider';
 
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
@@ -21,22 +19,24 @@ function Login() {
   console.log(type)
 
   async function check() {
-    document.getElementById("noUsername").hidden = true;
-    document.getElementById("noPassword").hidden = true;
+    var noUser = document.getElementById("noUsername");
+    var noPassword = document.getElementById("noPassword")
+    noUser.hidden = true;
+    noPassword.hidden = true;
+    
     var username = document.getElementById("username");
-    // alert("username:" + username.value)
     if(username.value === "") {
-      document.getElementById("noUsername").hidden = false;
+      noUser.hidden = false;
       return false;
     }
-    else document.getElementById("noUsername").hidden = true;
+    else noUser.hidden = true;
 
     var password = document.getElementById("password");
     if(password.value === "") {
-      document.getElementById("noPassword").hidden = false;
+      noPassword.hidden = false;
       return false;
     }
-    else document.getElementById("noPassword").hidden = true;
+    else noPassword.hidden = true;
 
     ///send data
     const data = (await axios.post(url, {username : username.value, password: password.value})).data
@@ -55,6 +55,15 @@ function Login() {
     }
     // console.log(data.employeeId)
 
+  }
+
+  function Done() {
+    setType("user");
+    console.log(type);
+    setLogin(true);
+    // return (<Router></Router>)
+    localStorage.setItem("type", "user");
+    window.location.reload();
   }
 
 //   function handleSignIn(e) {
@@ -90,7 +99,7 @@ function Login() {
             <span></span>
         </div> */}
 
-        <button type="button" onClick={check} className={styles.btn_submit}>Login</button>
+        <button type="button" onClick={Done} className={styles.btn_submit}>Login</button>
         <div className={styles.signup_link}>
             Not a member? <a href="/register">Sign up</a>
         </div>

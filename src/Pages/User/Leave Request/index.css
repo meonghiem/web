@@ -4,3 +4,19 @@
     /* height: 77vh; */
     max-height: 90vh;
 }
+
+#chooseRequest {
+    height: 5rem;
+    width: 25%; 
+    padding: 0;
+    border: solid 0.2rem; 
+    
+    display:flex; 
+    align-items: center; 
+    justify-content: center;
+    /* margin-bottom: 2rem; */
+    /* font-size: 2rem; */
+}
+#chooseRequest:hover {
+    cursor: pointer;
+}

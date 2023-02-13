@@ -1,7 +1,7 @@
 import "./childTab.css";
 
 export default function ChildTab({childTabs, active}) {
-    console.log("child " + childTabs)
+    // console.log("child " + childTabs)
     
     return (
         <div className='childTabs'>

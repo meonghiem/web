@@ -1,12 +1,11 @@
 import Button from "../../../../components/button";
 import Layout from "../../../../layout";
 import './index.css'
-import Logo512 from 'public/logo512.png'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {username, employeeID} from "../../../../storage";
+import {employeeID} from "../../../../storage";
 
-const url = "http://localhost:3001/api/user/show.php";
+const url = "http://localhost:3001/personal_info";
 const Tab = {
     parent: "My Profile",
     child: "Personal info"
@@ -14,11 +13,13 @@ const Tab = {
 
 export default function PersonalInfo (){
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({name: "###none###"});
+    
+    const [noti, setNoti] = useState({});
     useEffect(() => {getData()}, [])
 
     function getData() {
-        axios.get(url + `?id=${employeeID}`)
+        axios.get(url + `/show.php?employeeId=${employeeID}`)
         .then(res => {
             console.log(res.data)
             setData(res.data)
@@ -27,10 +28,11 @@ export default function PersonalInfo (){
     }
     
     function sendData() {
-        axios.post(url, data)
+        axios.post(url + `/update.php`, data)
         .then(res => {
-            console.log(typeof res.data);
-            setData(res.data );
+            // console.log(res.data);
+            // setData(res.data );
+            setNoti(res.data);
         })
         .catch(error => console.log(error))
     }
@@ -57,8 +59,11 @@ export default function PersonalInfo (){
             a.disabled = true;
             a.style.border = "0";
         }
+        data.employeeId = employeeID
         for(let key in data) {
-            data[key] = document.getElementById(key).value;
+            console.log(key + " " + document.getElementById(key));
+            if(key !== "employeeId" && key !== "imageUrl")
+                data[key] = document.getElementById(key).value;
         }
         
         let editBtn = document.getElementById("edit");
@@ -68,13 +73,14 @@ export default function PersonalInfo (){
         sendData();
     }
 
-    return ( data ? 
+    console.log(data)
+    return ( data.name !== "###none###" ? 
         <Layout tab={Tab} content= {
             <div className="p_outside">
                 
                 <div className="profilePic">
                     <div> <b>Profile Picture </b></div>
-                    <div><img src={Logo512} alt="Some profile pic"></img></div>
+                    <div><img id="imageUrl" src={process.env.PUBLIC_URL + data.imageUrl} alt="Some profile pic"></img></div>
                 </div>
                 <div className="personalInfo">
                     <table className="infoTable" rules="none">
@@ -109,7 +115,7 @@ export default function PersonalInfo (){
                         <tr className="infoRow">
                             <td className="infoCell"> 
                                 <b>Birthplace </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthPlace"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.birthplace} id="birthplace"/>
                             </td>
                             <td className="infoCell"> <b>Martital status </b> <br />
                                 <textarea type="text" className="inputBox" disabled={true} defaultValue={data.maritalStatus} id="maritalStatus"/> 
@@ -128,7 +134,7 @@ export default function PersonalInfo (){
 
                         <tr className="infoRow">
                             <td className="infoCell"> <b>Phone </b> <br />
-                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.mobilePhone} id="mobliePhone"/>
+                                <textarea type="text" className="inputBox" disabled={true} defaultValue={data.phone} id="phone"/>
                             </td>
                             <td className="infoCell"> <b>Emergency Phone </b> <br />
                                 <textarea type="text" className="inputBox" disabled={true} defaultValue={data.emergencyPhone} id="emergencyPhone"/>
