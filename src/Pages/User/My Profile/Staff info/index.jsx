@@ -2,9 +2,13 @@ import Layout from '../../../../layout'
 import './index.css'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {type, employeeID} from "../../../../storage";
+// import {type, employeeID} from "../../../../storage";
 // import Button from '../../../../components/button';
 const url = "http://localhost:3001/staff_info";
+
+const employeeID = localStorage.getItem("employeeId");
+const type = localStorage.getItem("type");
+
 
 let Data = {
     jobTitle: "CEO",

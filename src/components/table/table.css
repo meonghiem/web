@@ -59,6 +59,7 @@
 }
 .row:hover {
   background-color: #84a6bd;
+  cursor: pointer;
 }
 
 .cell {

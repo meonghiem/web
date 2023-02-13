@@ -3,7 +3,9 @@ import Layout from "../../../../layout";
 import './index.css'
 import axios from 'axios'
 import {  useEffect, useState } from "react";
-import {employeeID} from "../../../../storage";
+// import {employeeID} from "../../../../storage";
+
+const employeeID = localStorage.getItem("employeeId")
 
 const url = "http://localhost:3001/personal_info";
 const Tab = {

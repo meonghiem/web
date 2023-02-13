@@ -17,7 +17,7 @@
 
 #earlyReason {
     color: #004b8f;
-    font-size: 4rem;   
+    font-size: 3.5rem;   
     line-height: 4rem;
     /* border: 0; */
     -webkit-box-shadow: none;
@@ -33,6 +33,7 @@
     padding-right: 4vw;
     margin-top: 4rem;
     width: 80%;
+    height: auto;
 }
 
 #checkoutEarly {

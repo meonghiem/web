@@ -49,10 +49,10 @@ const column = [
       title: 'Status',
       key: 'type',
     },
-    // {
-    //   title: 'Edit',
-    //   key: 'button',
-    // }
+    {
+      title: 'Edit',
+      key: 'button',
+    }
 ]
 
 // let date = {

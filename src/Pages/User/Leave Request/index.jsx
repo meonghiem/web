@@ -6,7 +6,10 @@ import Calendar from 'public/calendar.png'
 import './index.css'
 import {  useEffect, useState } from "react";
 import axios from 'axios'
-import {employeeID, type} from '../../../storage'
+// import {employeeID, type} from '../../../storage'
+
+const employeeID = localStorage.getItem("employeeId");
+const type = localStorage.getItem("type");
 
 let dayOfMonths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 

@@ -1,20 +1,21 @@
 import * as React from "react";
 import avatar from "public/Kid.jpg";
-import companyLogo from "public/Pionero.png";
+// import companyLogo from "public/Pionero.png";
 import {ReactComponent as Vector} from "public/svg/Vector.svg";
 import {  useEffect, useState } from "react";
 
 // import{ ReactComponent as LogoutIcon} from "public/svg/logout_icon.svg";
-import { formatDate } from "../../storage";
+import { formatDate, formatTime, getCurrentTime, badwords, addAttendance, updateAttendance } from "../../storage";
 import './sideBar.css'
 import axios from 'axios'
 
 let username = localStorage.getItem('username')
-let type = localStorage.getItem('type')
+// let type = localStorage.getItem('type')
 let employeeID = localStorage.getItem("employeeId");
 
 const g_url = `http://localhost:3001/attendance/getAttendance.php?id=${employeeID}`;
 const c_url = `http://localhost:3001/attendance/create.php`;
+const u_url = `http://localhost:3001/attendance/update.php`
 
 let workType;
 let isIn = false;
@@ -29,15 +30,41 @@ const Sidebar = function Sidebar() {
                                       m: (getCurrentTime()).getMinutes()    });
 
   let inTime;
-  function getCurrentTime() {
-    // const str = '12/21/2024 06:34:59';
+//   function getCurrentTime() {
+//     // const str = '12/21/2024 06:34:59';
 
-    // const date = parse(str, 'MM/dd/yyyy hh:mm:ss', new Date());
-    return new Date(2023, 2, 8, 8, 5, 13);
-  }
+//     // const date = parse(str, 'MM/dd/yyyy hh:mm:ss', new Date());
+//     return new Date(2023, 2, 8, 8, 5, 13);
+//   }
+  
+// // function getCurrentTime() {
+// //   return new Date();
+// // }
+
+// function formatDate() {
+//   let now = getCurrentTime();
+//   let day = now.getDay();
+//   let month = now.getMonth();
+//   let year = now.getFullYear();
+
+//   return year + "-" + (month > 10 ? month : "0" + month) + "-" + (day > 10 ? day : "0" + day);
+// }
+
+// function formatTime(type) {
+//   var now = getCurrentTime();
+//   var hour = now.getHours();
+//   var minute = now.getMinutes();
+//   var second = now.getSeconds();
+//   var realTime;
+//   if(type === "hms")
+//     realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute) + ":" + (second < 10 ? ('0' + second) : second);
+//   if(type === "hm")  
+//     realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute)
+//   return realTime;
+// };
   useEffect(
     () => {
-      getInTimeToday();
+      if(!localStorage.getItem("inTime")) getInTimeToday();
       const intervalId = setInterval(() => {
         let now = getCurrentTime();
         let hour = now.getHours();
@@ -45,7 +72,7 @@ const Sidebar = function Sidebar() {
         setTime({   h: hour,
                     m: minute    });
         if ((hour === 17 && isIn === true) || (hour=== 22 && isIn === true)) outClick();
-        if(hour === 0) dayOff = checkDayoff();
+        // if(hour === 0) dayOff = checkDayoff();
       }, 30000);
       return () => {
         clearInterval(intervalId)
@@ -53,40 +80,54 @@ const Sidebar = function Sidebar() {
     } 
   )
 
-  function sendData() {
+  function sendData(Type) {
     let data = {
       type: workType,
-      outEarlyReason: "",
+      // outEarlyReason: "",
       date: formatDate(),
       inTime: formatTime("hms"),
       id: employeeID,
       // count: 15
     }
 
-    axios.post(c_url, data)
-    .then(res => {
-      console.log(res);
-      alert(res.data[1])
-    })
-    .catch(error => console.log(error))
+    if(Type === "in") {
+      data.outTime = "";
+      data.outEarlyReason = ""
+      axios.post(c_url, data)
+      .then(res => {
+        console.log(res);
+        // alert(res.data[1]);
+        getInTimeToday()
+      })
+      .catch(error => console.log(error))
+    }
+    else {
+      
+      axios.post(u_url, data)
+      .then(res => {
+        console.log(res);
+        // alert(res.data[1])
+      })
+      .catch(error => console.log(error))
+    }
   }
 
 
   function getInTimeToday() {
+    console.log(g_url+"&command=inToday")
     axios.get(g_url+"&command=inToday")
     .then(res => {
       // alert(res.data)
       console.log(res.data);
-      if(res.data != "00:00") setIn();
-      else {
-
-        const [h, m, s] = res.data.split(":");
-        inTime = {
-          h: h,
-          m: m,
-          s: s
-        }
+      if(res.data == "00:00:00") {
+        setIn();
+        localStorage.setItem("inTime", "normal");
       }
+      else if(res.data != "00:00") {
+        localStorage.setItem("inTime","block");
+      }
+      else 
+        localStorage.setItem("inTime", "none");
     })
     .catch(error => console.log(error))
   }
@@ -97,20 +138,21 @@ const Sidebar = function Sidebar() {
     btn.style.display = "none";
     const box = document.getElementById("out-btn");
     box.style.display = "block";
+    isIn = true;
   }
 
-  function formatTime(type) {
-    var now = getCurrentTime();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
-    var realTime;
-    if(type === "hms")
-      realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute) + ":" + (second < 10 ? ('0' + second) : second);
-    if(type === "hm")  
-      realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute)
-    return realTime;
-  };
+  // function formatTime(type) {
+  //   var now = getCurrentTime();
+  //   var hour = now.getHours();
+  //   var minute = now.getMinutes();
+  //   var second = now.getSeconds();
+  //   var realTime;
+  //   if(type === "hms")
+  //     realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute) + ":" + (second < 10 ? ('0' + second) : second);
+  //   if(type === "hm")  
+  //     realTime = hour + ":" + (minute < 10 ? ('0' + minute) : minute)
+  //   return realTime;
+  // };
 
   function logout() {
     
@@ -118,6 +160,7 @@ const Sidebar = function Sidebar() {
     localStorage.removeItem('type')
     localStorage.removeItem('username')
     localStorage.removeItem('employeeId')
+    localStorage.removeItem('inTime')
     // setTime(new Date());
     window.location.reload()
   }
@@ -133,8 +176,6 @@ const Sidebar = function Sidebar() {
 
   }
 
-  function checkDayoff() {}
-
   function getCurrentWorkTime() {
 
     if(isIn === false) return "00:00"
@@ -143,8 +184,54 @@ const Sidebar = function Sidebar() {
     let hour = now.getHours();
     let minute = now.getMinutes();
 
+    let [h, m, s] = localStorage.getItem("inTime").split(":");
+
+    let inTime = {
+      h: parseInt(h),
+      m: parseInt(m), 
+      s: parseInt(s)
+    }
+    
+    // inTime = localStorage.getItem("inTime");
     return getTimeDiff(inTime, {h: hour, m: minute});
 
+  }
+
+  function checkDayoff() {
+    let now = getCurrentTime();
+    let dayOfWeek = now.getDay();
+    console.log(dayOfWeek);
+    // return;
+   
+    
+    if(dayOfWeek === 6 || dayOfWeek === 0) {
+      alert("Hôm nay là ngày nghỉ, không thể check-in");
+      return true;
+    }
+  }
+
+  function checkReason() {
+    let reason = document.getElementById("earlyReason").value;
+    let words = []
+    badwords.forEach(word => 
+      reason.replace(/ /g, '').toLowerCase()
+        .includes(word.replace(/ /g, '').toLowerCase()) ? words.push(word) : null)
+    return words
+  }
+
+  function hasReason() {
+    if(document.getElementById("earlyReason").value == "") {
+      alert("Hãy nhập lí do ngắn gọn");
+      return false;
+    }
+    let check = checkReason();
+    if(check > 0) {
+      alert("Có vẻ bạn đã sử dụng 1 số từ không phù hợp, hãy kiểm tra lại lí do!!!")
+      // document.getElementById("earlyCheck").hidden = false;
+      return false;
+    }
+    else
+      checkOut();
   }
 
   function checkIn() {
@@ -152,10 +239,9 @@ const Sidebar = function Sidebar() {
     let now = getCurrentTime();
     let hour = now.getHours();
     let minute = now.getMinutes();
-    let second = now.getSeconds();
     
-    if(dayOff === true) {
-      alert("Hôm nay là ngày nghỉ của bạn, không thể check-in");
+    let check = checkDayoff();
+    if(check === true) {
       return false;
     }
 
@@ -182,34 +268,39 @@ const Sidebar = function Sidebar() {
 
   const inClick = () => {
 
+    if(localStorage.getItem("inTime") == "block") {
+      alert("Hôm nay đã check in rồi");
+      return;
+    }
+
     // document.getElementById("earlyCheck").hidden = false;
 
     let now = getCurrentTime();
     let hour = now.getHours();
     let minute = now.getMinutes();
     let second = now.getSeconds();
+    
 
     let check = checkIn();
-    if(check == false) return check;
+    if(check === false) return check;
     if(hour > 17) workType = "overtime";
     else workType = "official";
 
     // setIn({h: hour, m: minute, s: second});
     isIn = true;
 
-    sendData();
+    // sendData("in");
+    addAttendance(employeeID, workType);
     
     setIn();
+    alert("Checkin lúc " + formatTime("hm"));
 
   };
 
   function checkOut() {
-    // let timeOut = formatTime("hms");
-    // let now = getCurrentTime();
-    // let hour = now.getHours();
-    // let minute = now.getMinutes();
-    // let second = now
-    alert("Out at " + formatTime("hm"));
+    updateAttendance(employeeID);
+
+    alert("Checkout lúc " + formatTime("hm"));
     const btn = document.getElementById("out-btn");
     btn.style.display = "none";
     const box = document.getElementById("in-btn");
@@ -217,17 +308,13 @@ const Sidebar = function Sidebar() {
 
     isIn = false;
     document.getElementById("earlyCheck").hidden = true;
-    // setOut({h: hour, m: minute, s: second});
-
-    // const data = {
-    //   type : workType,
-    //   employeeId: employeeID,
-    //   date: 
-    // }
+    localStorage.removeItem('inTime')
+    window.location.reload();
   }
 
   function Cancel() {
     
+    document.getElementById("earlyReason").value = "";
     document.getElementById("earlyCheck").hidden = true;
   }
   
@@ -238,19 +325,12 @@ const Sidebar = function Sidebar() {
     let second = now.getSeconds();
 
     if(workType === "official" && hour < 17) { /// create, popup reason
-      alert("Chưa đến giờ check-out 17:00 mà, không biết bạn có lí do gì xin về sớm không nhỉ?");
+      alert("Chưa đến giờ check-out 17:00, không biết bạn có lí do gì xin về sớm không nhỉ?");
       document.getElementById("earlyCheck").hidden = false;
       return;
       /// popup
     } 
-    if(workType === "overtime" && (hour * 60 + minute) - (inTime.h * 60 + inTime.m) < 60) {
-      alert("Thời gian làm overtime tối thiểu là 1 tiếng, không biết bạn có lí do gì xin về sớm không nhỉ?");
-      document.getElementById("earlyCheck").hidden = false;
-      return;
-      //// popup
-    }
-
-    checkOut(hour, minute, second);
+    checkOut();
     
   };
 
@@ -261,15 +341,15 @@ const Sidebar = function Sidebar() {
           {/* <img src={companyLogo} alt="Company's Logo" /> */}
           {/* <Company /> */}
           <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M29.011 54.3747C43.0228 54.3747 54.375 43.0225 54.375 29.011C54.375 14.9772 43.0228 3.625 29.011 3.625C14.9995 3.625 3.625 14.9772 3.625 29.011C3.625 43.0225 14.9995 54.3747 29.011 54.3747Z" fill="url(#paint0_linear_1_13570)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M15.4465 42.3968C17.0453 43.9951 18.9043 45.3098 20.9438 46.2849L15.4465 33.6816L10.8654 23.1785C10.262 25.011 9.94919 26.9775 9.94919 29.0111C9.94919 34.2179 12.0498 38.9554 15.4465 42.3968V42.3968ZM42.5753 47.2684C48.1396 43.1343 51.7598 36.4969 51.7598 29.0111C51.7598 21.5249 48.1396 14.8879 42.5753 10.7313C38.7763 7.91564 34.0838 6.23962 29.0111 6.23962C23.9383 6.23962 19.2455 7.91564 15.4465 10.7313C9.88215 14.8879 6.26196 21.5249 6.26196 29.0111C6.26196 36.4969 9.88215 43.1343 15.4465 47.2684C19.2455 50.0838 23.9383 51.7601 29.0111 51.7601C34.0838 51.7601 38.7763 50.0841 42.5753 47.2684ZM42.5753 15.6253C43.2526 16.3032 43.873 17.0357 44.4304 17.8153L42.5753 22.1059L35.581 38.1733L31.9608 29.9273H26.0613L22.4411 38.1733L15.4465 22.1059L13.5917 17.8153C14.1489 17.0356 14.7692 16.3032 15.4465 15.6253C16.607 14.4405 17.9225 13.4181 19.3572 12.5861L25.9719 27.9831H32.0499L38.6646 12.5861C40.0993 13.4181 41.4148 14.4405 42.5753 15.6253V15.6253ZM42.5753 33.6816L47.1564 23.1785C47.7601 25.011 48.0729 26.9775 48.0729 29.0111C48.0729 34.2176 45.9723 38.9554 42.5753 42.3968C40.9766 43.9951 39.1178 45.3098 37.0783 46.2849L42.5753 33.6816V33.6816ZM29.0111 35.1564L34.3299 47.2908C32.6022 47.7962 30.8112 48.0521 29.0111 48.0506C27.2111 48.0521 25.4201 47.7962 23.6925 47.2908L29.0111 35.1564ZM29.0111 23.2232L34.4863 10.7537C32.7653 10.2174 30.9105 9.9492 29.0111 9.9492C27.1116 9.9492 25.2791 10.2174 23.5361 10.7537L29.0111 23.2232Z" fill="white"/>
-<defs>
-<linearGradient id="paint0_linear_1_13570" x1="3.63281" y1="3.6328" x2="54.3669" y2="54.3669" gradientUnits="userSpaceOnUse">
-<stop stop-color="#2088FA"/>
-<stop offset="1" stop-color="#032B5C"/>
-</linearGradient>
-</defs>
-</svg>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.011 54.3747C43.0228 54.3747 54.375 43.0225 54.375 29.011C54.375 14.9772 43.0228 3.625 29.011 3.625C14.9995 3.625 3.625 14.9772 3.625 29.011C3.625 43.0225 14.9995 54.3747 29.011 54.3747Z" fill="url(#paint0_linear_1_13570)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.4465 42.3968C17.0453 43.9951 18.9043 45.3098 20.9438 46.2849L15.4465 33.6816L10.8654 23.1785C10.262 25.011 9.94919 26.9775 9.94919 29.0111C9.94919 34.2179 12.0498 38.9554 15.4465 42.3968V42.3968ZM42.5753 47.2684C48.1396 43.1343 51.7598 36.4969 51.7598 29.0111C51.7598 21.5249 48.1396 14.8879 42.5753 10.7313C38.7763 7.91564 34.0838 6.23962 29.0111 6.23962C23.9383 6.23962 19.2455 7.91564 15.4465 10.7313C9.88215 14.8879 6.26196 21.5249 6.26196 29.0111C6.26196 36.4969 9.88215 43.1343 15.4465 47.2684C19.2455 50.0838 23.9383 51.7601 29.0111 51.7601C34.0838 51.7601 38.7763 50.0841 42.5753 47.2684ZM42.5753 15.6253C43.2526 16.3032 43.873 17.0357 44.4304 17.8153L42.5753 22.1059L35.581 38.1733L31.9608 29.9273H26.0613L22.4411 38.1733L15.4465 22.1059L13.5917 17.8153C14.1489 17.0356 14.7692 16.3032 15.4465 15.6253C16.607 14.4405 17.9225 13.4181 19.3572 12.5861L25.9719 27.9831H32.0499L38.6646 12.5861C40.0993 13.4181 41.4148 14.4405 42.5753 15.6253V15.6253ZM42.5753 33.6816L47.1564 23.1785C47.7601 25.011 48.0729 26.9775 48.0729 29.0111C48.0729 34.2176 45.9723 38.9554 42.5753 42.3968C40.9766 43.9951 39.1178 45.3098 37.0783 46.2849L42.5753 33.6816V33.6816ZM29.0111 35.1564L34.3299 47.2908C32.6022 47.7962 30.8112 48.0521 29.0111 48.0506C27.2111 48.0521 25.4201 47.7962 23.6925 47.2908L29.0111 35.1564ZM29.0111 23.2232L34.4863 10.7537C32.7653 10.2174 30.9105 9.9492 29.0111 9.9492C27.1116 9.9492 25.2791 10.2174 23.5361 10.7537L29.0111 23.2232Z" fill="white"/>
+            <defs>
+            <linearGradient id="paint0_linear_1_13570" x1="3.63281" y1="3.6328" x2="54.3669" y2="54.3669" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2088FA"/>
+            <stop offset="1" stop-color="#032B5C"/>
+            </linearGradient>
+            </defs>
+          </svg>
 
 
 
@@ -288,7 +368,7 @@ const Sidebar = function Sidebar() {
 
         <div>
           <h3 className="nameText">
-            <p>Welcome back</p>
+            <p>Welcome</p>
             <p>{username}</p>
           </h3>
         </div>
@@ -328,7 +408,7 @@ const Sidebar = function Sidebar() {
               fontWeight: "500",
               textAlign: "center",
             }}
-          > {getCurrentWorkTime()}
+          > {"00:00"}
           </h1>
         </div>
         <div
@@ -476,14 +556,14 @@ const Sidebar = function Sidebar() {
           {
             workType === "overtime" ? 
             "Thời gian làm overtime tối thiểu là 1 tiếng, không biết bạn có lí do gì xin về sớm không nhỉ?" :
-            "Chưa đến giờ check-out 17:00 mà, không biết bạn có lí do gì xin về sớm không nhỉ?"
+            "Chưa đến giờ check-out 17:00, không biết bạn có lí do gì xin về sớm không nhỉ?"
           }
           <div>
             <textarea  id="earlyReason" placeholder="Lí do ngắn gọn"></textarea>
           </div>
 
           <div>
-            <button id="checkoutEarly" onClick={checkOut}>
+            <button id="checkoutEarly" onClick={hasReason}>
               Checkout
             </button>
             <br/>
