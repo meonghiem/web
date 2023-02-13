@@ -52,6 +52,8 @@ function Login() {
       console.log(data.userType)
       console.log(type)
       window.location.reload()
+    } else{
+      alert("Dang nhap that bai")
     }
     // console.log(data.employeeId)
 

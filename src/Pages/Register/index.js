@@ -17,10 +17,10 @@ function Login() {
   const [text, setText] = useState("");
 
   async function check() {
-    document.getElementById("noUsername").hidden = false;
-    document.getElementById("noPassword").hidden = false;
-    document.getElementById("noConfirmPassword").hidden = false;
-    document.getElementById("notConfirmPassword").hidden = false;
+    document.getElementById("noUsername").hidden = true;
+    document.getElementById("noPassword").hidden = true;
+    document.getElementById("noConfirmPassword").hidden = true;
+    document.getElementById("notConfirmPassword").hidden = true;
 
     var username = document.getElementById("username");
     // alert("username:" + username.value)
