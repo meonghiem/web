@@ -91,3 +91,20 @@
     border: 0.05rem solid #002a7e
   }
 }
+
+#moreInfo {
+  background-color: rgba(249, 249, 249, 0.9);
+  /* filter: blur(8px);
+-webkit-filter: blur(8px); */
+  position:absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  text-align: center;
+  align-items: center;
+  vertical-align: center;
+  color: #004b8f;
+  font-size: 5rem;
+}

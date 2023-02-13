@@ -3,40 +3,40 @@
 import React from 'react'
 import styles from './Login.module.css'
 import { useState } from 'react';
-import { type,setType, setUsername, setEmployeeId } from '../../storage'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hook/AuthProvider';
 
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
 // import pionero from 'public/images/pionero.jpg'
-const url = "http://localhost/restful_php_api/api/user/login.php"
+const url = "http://localhost:3001/user/login.php"
 
 
 function Login() {
   const navigate = useNavigate()
   const [login, setLogin] = useState(false);
   // const {login} = useAuth()
-  console.log(type)
+  // console.log(type)
 
   async function check() {
-    document.getElementById("noUsername").hidden = true;
-    document.getElementById("noPassword").hidden = true;
+    var noUser = document.getElementById("noUsername");
+    var noPassword = document.getElementById("noPassword")
+    noUser.hidden = true;
+    noPassword.hidden = true;
+    
     var username = document.getElementById("username");
-    // alert("username:" + username.value)
     if(username.value === "") {
-      document.getElementById("noUsername").hidden = false;
+      noUser.hidden = false;
       return false;
     }
-    else document.getElementById("noUsername").hidden = true;
+    else noUser.hidden = true;
 
     var password = document.getElementById("password");
     if(password.value === "") {
-      document.getElementById("noPassword").hidden = false;
+      noPassword.hidden = false;
       return false;
     }
-    else document.getElementById("noPassword").hidden = true;
+    else noPassword.hidden = true;
 
     ///send data
     const data = (await axios.post(url, {username : username.value, password: password.value})).data
@@ -50,7 +50,7 @@ function Login() {
       localStorage.setItem('username',data.username)
       localStorage.setItem('employeeId', data.employeeId)
       console.log(data.userType)
-      console.log(type)
+      // console.log(type)
       window.location.reload()
     } else{
       alert("Dang nhap that bai")
@@ -58,6 +58,15 @@ function Login() {
     // console.log(data.employeeId)
 
   }
+
+  // function Done() {
+  //   setType("user");
+  //   console.log(type);
+  //   setLogin(true);
+  //   // return (<Router></Router>)
+  //   localStorage.setItem("type", "user");
+  //   window.location.reload();
+  // }
 
 //   function handleSignIn(e) {
 //     e.preventDefault()
