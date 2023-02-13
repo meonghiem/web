@@ -4,13 +4,14 @@ import "./tab.css";
 import { adminTabs, employeeTabs } from "../Tabs.js";
 import Refresh from "public/refresh.png";
 import IconButton from "../../components/iconButton";
-import { type } from "../../storage";
+// import { type } from "../../storage";
 
 // import {ReactComponent as My_profile } from "public/svg/My_profile.svg";
 // import Attendance from "public/attendance.png";
 // import Myprofile from "public/myprofile.png";
 
 let tabs;
+let type = localStorage.getItem("type")
 if(type === "user") tabs = employeeTabs;
 if(type === "admin") tabs = adminTabs;
 
@@ -42,6 +43,14 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
     <>
       <div className="tabSlide">
         <ul id="myTab">
+          {/* <li>
+            <IconButton
+              icon={Refresh}
+              iconStyle={iconStyle}
+              children="Refresh"
+              onClick={refresh}
+            ></IconButton>
+            </li> */}
           {tabs.map((tab) => {
             return (
               <li key={tab.text} className="tabChild">
@@ -50,7 +59,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
                   className={`tab
                     ${tab.active ? "tabActive" : "tabUnactive"}
                   `}
-                  id="profile-tab"
+                  // className="profile-tab"
                   type="button"
                 >
                   {tab.text}
@@ -58,14 +67,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
               </li>
             );
           })}
-          <li style={{ width: "15vw", textAlign: "right" }}>
-            <IconButton
-              icon={Refresh}
-              iconStyle={iconStyle}
-              children="Refresh"
-              onClick={refresh}
-            ></IconButton>
-          </li>
+          
         </ul>
 
         {hasChild ? (

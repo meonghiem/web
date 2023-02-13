@@ -10,15 +10,21 @@ body {
 }
 
 .profilePic  {
-    width: 60%;
+    width: 50%;
     align-items: center;
     text-align: center;
     padding-right: 2vw;
     font-size: 1.4rem;
     color: #004b8f;
 }
+
+#imageUrl {
+    margin-top: 5rem;
+    width: 20rem;
+}
+
 .personalInfo {
-    width: 40%;
+    width: 50%;
 }
 
 .infoRow {

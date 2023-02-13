@@ -23,38 +23,30 @@ for (let i = 0; i < 30; ++i) {
 const column = [
   {
     title: 'Day',
-    dataIndex: 'day',
     key: 'id',
   },
   {
     title: 'Date',
-    dataIndex: 'date',
     key: 'location_name',
   },
   {
     title: 'In',
-    dataIndex: 'in',
     key: 'description',
   },
   {
     title: 'Out',
-    dataIndex: 'out',
     key: 'status',
   },
   {
     title: 'Work Time',
-    dataIndex: 'work_time',
     key: 'work_time',
   },
   {
     title: 'Status',
-    dataIndex: 'status',
     key: 'status',
-    // render: () => <ButtonComponent className="button-color" children="Update" />,
   },
   {
     title: '',
-    dataIndex: 'comment',
     key: 'comment',
   }
 ]
