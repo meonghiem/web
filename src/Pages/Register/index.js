@@ -9,7 +9,7 @@ import axios from "axios";
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
 // import pionero from 'public/images/pionero.jpg'
-const url = "http://localhost:3001/user/register.php";
+const url = "http://localhost/restful_php_api/api/user/register.php";
 
 function Login() {
   const navigate = useNavigate();

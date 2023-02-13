@@ -13,7 +13,7 @@ let dayOfMonths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 // const api = axios.create({baseURL: 'http://localhost:8080'});
 const employeeID = localStorage.getItem("employeeId")
-const url = `http://localhost:3001/attendance/getAttendance.php?id=${employeeID}`;
+const url = `http://localhost/restful_php_api/api/attendance/getAttendance.php?id=${employeeID}`;
 
 const Tab = {
     parent: "Attendance",
@@ -47,7 +47,7 @@ const column = [
     },
     {
       title: 'Status',
-      key: 'type',
+      key: 'status',
     },
     // {
     //   title: 'Edit',

@@ -4,7 +4,7 @@ import axios from 'axios'
 import {  useEffect, useState } from "react";
 import {type, employeeID} from "../../../../storage";
 // import Button from '../../../../components/button';
-const url = "http://localhost:3001/staff_info";
+const url = "http://localhost/restful_php_api/api/staff_info";
 
 let Data = {
     jobTitle: "CEO",

@@ -50,7 +50,7 @@ const Tab = {
     child: undefined
 }
 
-const url = `http://localhost:3001/furlough/getDayoff.php?id=${employeeID}`;
+const url = `http://localhost/restful_php_api/api/furlough/getDayoff.php?id=${employeeID}`;
 
 export default function LeaveRequest({page_data}) {
 

@@ -16,7 +16,16 @@ code {
     font-size: 15px;
   }
   .isDesktop{
-    display: none
+    display: none;
+  }
+  .isMobile{
+    display:block;
+  }
+  .isDesktopTab{
+    display:none;
+  }
+  .isMobileTab{
+    display: block;
   }
 }
 
@@ -25,7 +34,17 @@ code {
     font-size: 18px;
   }
   .isDesktop{
-    display: none;
+    display: block;
+  }
+  .isMobile{
+    display:none;
+  }
+  .isDesktopTab{
+    display:none;
+  }
+
+  .isMobileTab{
+    display: block;
   }
 }
 
@@ -35,5 +54,15 @@ code {
   }
   .isDesktop{
     display: block;
+  }
+
+  .isMobile{
+    display:none;
+  }
+  .isDesktopTab{
+    display: block;
+  }
+  .isMobileTab{
+    display:none
   }
 }

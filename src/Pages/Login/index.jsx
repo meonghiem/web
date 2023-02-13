@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
 // import pionero from 'public/images/pionero.jpg'
-const url = "http://localhost:3001/user/login.php"
+const url = "http://localhost/restful_php_api/api/user/login.php"
 
 
 function Login() {
@@ -53,7 +53,7 @@ function Login() {
       // console.log(type)
       window.location.reload()
     } else{
-      alert("Dang nhap that bai")
+      alert(data.message)
     }
     // console.log(data.employeeId)
 
