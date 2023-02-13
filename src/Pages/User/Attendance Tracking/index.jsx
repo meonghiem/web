@@ -47,7 +47,7 @@ const column = [
     },
     {
       title: 'Status',
-      key: 'type',
+      key: 'status',
     },
     {
       title: 'Edit',

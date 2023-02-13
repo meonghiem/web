@@ -147,9 +147,9 @@ const WorkhourApproval = () => {
     child: "Workhour Approval",
   };
   const url =
-    "http://localhost/restful_php_api/api/attendance/readRequesting.php";
+    "http://localhost:3001/attendance/readRequesting.php";
   const url1 =
-    "http://localhost/restful_php_api/api/attendance/readAfterRequest.php";
+    "http://localhost:3001/attendance/readHandled.php";
   useEffect(() => {
     const fetchData = async () => {
       const data = (await axios.get(url)).data.data;

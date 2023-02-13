@@ -52,6 +52,8 @@ function Login() {
       console.log(data.userType)
       // console.log(type)
       window.location.reload()
+    } else{
+      alert(data.message)
     }
     // console.log(data.employeeId)
 

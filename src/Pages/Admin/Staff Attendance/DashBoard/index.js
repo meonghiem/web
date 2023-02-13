@@ -1,10 +1,11 @@
 // import ButtonIcon from "../../../components/iconButton";
 import Button from "../../../../components/Button1";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ReactComponent as Search } from "public/svg/search.svg";
 import IconButton from "../../../../components/iconButton";
 import Table from "../../../../components/table";
+import axios from "axios";
 
 import AppLayout from "../../../../layout";
 import Layout from "../../../../layout";
@@ -25,8 +26,18 @@ const columns = [
   },
   {
     title: "Employee",
-    dataIndex: "employee",
-    key: "employee",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Month",
+    dataIndex: "month",
+    key: "month",
+  },
+  {
+    title: "Year",
+    dataIndex: "year",
+    key: "year",
   },
   // {
   //   title: "Status",
@@ -35,90 +46,90 @@ const columns = [
   // },
   {
     title: "Hour This Month",
-    dataIndex: "hourThisMonth",
-    key: "hourThisMonth",
+    dataIndex: "totalTime",
+    key: "totalTime",
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    employeeId: "abc",
-    employee: "32",
-    status: "in",
-    hourThisMonth: 132,
-  },
-  {
-    key: "2",
-    employeeId: "abc",
-    employee: "32",
-    status: "out",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-  {
-    key: "3",
-    employeeId: "abc",
-    employee: "32",
-    status: "back",
-    hourThisMonth: 132,
-  },
-];
+// const data = [
+//   {
+//     key: "1",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "in",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "2",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "out",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+//   {
+//     key: "3",
+//     employeeId: "abc",
+//     employee: "32",
+//     status: "back",
+//     hourThisMonth: 132,
+//   },
+// ];
 
 const numbers = [
   ["Working", 15],
@@ -126,8 +137,26 @@ const numbers = [
   ["TOOK LEAVE", "60"],
   ["PENDING REQUEST", "70"],
 ];
+
+const url = "http://localhost:3001/admin/getDashboard.php";
 const Dashboard = () => {
   // const status = ["in", "out", "rest", "back"];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = (await axios.post(url, {})).data.data;
+      console.log(res);
+      const datas = res.map((data, index) => {
+        data["key"] = index;
+        return data;
+      });
+      setData(datas);
+
+      console.log(datas);
+    };
+    fetchData();
+  }, []);
+
   const Tab = {
     parent: "Staff Attendance",
     child: "Dashboard",
@@ -135,8 +164,9 @@ const Dashboard = () => {
 
   const form = {
     employeeId: "",
-    employee: "",
-    status: "",
+    // name: "",
+    month: "",
+    year: "",
   };
 
   numbers[0].push("#0F6FC6");
@@ -144,12 +174,26 @@ const Dashboard = () => {
   numbers[2].push("#FF0000");
   numbers[3].push("#FF9900");
 
-  const find = () => {
+  const find = async () => {
     for (let key in form) {
       form[key] = document.getElementById(key).value;
     }
     console.log("find");
     console.log(form);
+    const res = (await axios.post(url, form)).data.data;
+    console.log(res);
+    if (res) {
+      console.log(res);
+      const datas = res.map((data, index) => {
+        data["key"] = index;
+        return data;
+      });
+      setData(datas);
+    } else {
+      setData([]);
+    }
+
+    // console.log(datas);
   };
   return (
     <AppLayout
@@ -238,7 +282,7 @@ const Dashboard = () => {
             </div>
             <div style={{ width: "100%" }}>
               <label
-                htmlFor="textName"
+                htmlFor="month"
                 style={{
                   color: "#004b8f",
                   marginBottom: "-0.8rem",
@@ -246,11 +290,39 @@ const Dashboard = () => {
                   fontSize: "1.25rem",
                 }}
               >
-                <p>Employee</p>
+                <p>Month</p>
               </label>
               <input
                 type="text"
-                id="employee"
+                id="month"
+                style={{
+                  backgroundColor: "#F9FAFB",
+                  color: "#111827",
+                  fontSize: "0.875rem",
+                  lineHeight: "1.75rem",
+                  borderWidth: "2px ",
+                  borderColor: "#004B8F",
+                  display: "block",
+                  width: "80%",
+                  marginTop: "-0.5rem",
+                }}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <label
+                htmlFor="year"
+                style={{
+                  color: "#004b8f",
+                  marginBottom: "-0.8rem",
+                  fontWeight: "700",
+                  fontSize: "1.25rem",
+                }}
+              >
+                <p>Year</p>
+              </label>
+              <input
+                type="text"
+                id="year"
                 style={{
                   backgroundColor: "#F9FAFB",
                   color: "#111827",
