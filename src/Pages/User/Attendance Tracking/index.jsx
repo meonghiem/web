@@ -12,6 +12,7 @@ let username = localStorage.getItem('username')
 let dayOfMonths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 // const api = axios.create({baseURL: 'http://localhost:8080'});
+const employeeID = localStorage.getItem("employeeId")
 const url = `http://localhost:3001/attendance/getAttendance.php?id=${employeeID}`;
 
 const Tab = {

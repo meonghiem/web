@@ -9,7 +9,7 @@ import axios from "axios";
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
 // import pionero from 'public/images/pionero.jpg'
-const url = "http://localhost/restful_php_api/api/user/register.php";
+const url = "http://localhost:3001/user/register.php";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ function Login() {
   const [text, setText] = useState("");
 
   async function check() {
-    document.getElementById("noUsername").hidden = false;
-    document.getElementById("noPassword").hidden = false;
-    document.getElementById("noConfirmPassword").hidden = false;
-    document.getElementById("notConfirmPassword").hidden = false;
+    document.getElementById("noUsername").hidden = true;
+    document.getElementById("noPassword").hidden = true;
+    document.getElementById("noConfirmPassword").hidden = true;
+    document.getElementById("notConfirmPassword").hidden = true;
 
     var username = document.getElementById("username");
     // alert("username:" + username.value)

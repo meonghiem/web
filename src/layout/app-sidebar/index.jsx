@@ -5,12 +5,13 @@ import {ReactComponent as Vector} from "public/svg/Vector.svg";
 import {  useEffect, useState } from "react";
 
 // import{ ReactComponent as LogoutIcon} from "public/svg/logout_icon.svg";
-import {employeeID, inTime, outTime, fullName, formatDate } from "../../storage";
+import { formatDate } from "../../storage";
 import './sideBar.css'
 import axios from 'axios'
 
 let username = localStorage.getItem('username')
 let type = localStorage.getItem('type')
+let employeeID = localStorage.getItem("employeeId");
 
 const g_url = `http://localhost:3001/attendance/getAttendance.php?id=${employeeID}`;
 const c_url = `http://localhost:3001/attendance/create.php`;
@@ -27,7 +28,7 @@ const Sidebar = function Sidebar() {
   const [time, setTime] = useState({  h: (getCurrentTime()).getHours(),
                                       m: (getCurrentTime()).getMinutes()    });
 
-
+  let inTime;
   function getCurrentTime() {
     // const str = '12/21/2024 06:34:59';
 
@@ -77,6 +78,15 @@ const Sidebar = function Sidebar() {
       // alert(res.data)
       console.log(res.data);
       if(res.data != "00:00") setIn();
+      else {
+
+        const [h, m, s] = res.data.split(":");
+        inTime = {
+          h: h,
+          m: m,
+          s: s
+        }
+      }
     })
     .catch(error => console.log(error))
   }
@@ -279,7 +289,7 @@ const Sidebar = function Sidebar() {
         <div>
           <h3 className="nameText">
             <p>Welcome back</p>
-            <p>{fullName}</p>
+            <p>{username}</p>
           </h3>
         </div>
         <div>

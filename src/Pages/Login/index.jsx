@@ -9,14 +9,14 @@ import { useNavigate } from 'react-router-dom';
 // import banner from 'public/images/logo.jpg'
 // import google from 'public/images/logo/google.png'
 // import pionero from 'public/images/pionero.jpg'
-const url = "http://localhost/restful_php_api/api/user/login.php"
+const url = "http://localhost:3001/user/login.php"
 
 
 function Login() {
   const navigate = useNavigate()
   const [login, setLogin] = useState(false);
   // const {login} = useAuth()
-  console.log(type)
+  // console.log(type)
 
   async function check() {
     var noUser = document.getElementById("noUsername");
@@ -50,21 +50,21 @@ function Login() {
       localStorage.setItem('username',data.username)
       localStorage.setItem('employeeId', data.employeeId)
       console.log(data.userType)
-      console.log(type)
+      // console.log(type)
       window.location.reload()
     }
     // console.log(data.employeeId)
 
   }
 
-  function Done() {
-    setType("user");
-    console.log(type);
-    setLogin(true);
-    // return (<Router></Router>)
-    localStorage.setItem("type", "user");
-    window.location.reload();
-  }
+  // function Done() {
+  //   setType("user");
+  //   console.log(type);
+  //   setLogin(true);
+  //   // return (<Router></Router>)
+  //   localStorage.setItem("type", "user");
+  //   window.location.reload();
+  // }
 
 //   function handleSignIn(e) {
 //     e.preventDefault()
@@ -99,7 +99,7 @@ function Login() {
             <span></span>
         </div> */}
 
-        <button type="button" onClick={Done} className={styles.btn_submit}>Login</button>
+        <button type="button" onClick={check} className={styles.btn_submit}>Login</button>
         <div className={styles.signup_link}>
             Not a member? <a href="/register">Sign up</a>
         </div>
