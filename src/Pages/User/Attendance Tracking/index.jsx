@@ -5,8 +5,8 @@ import {column, data} from '../../../Test';
 import Calendar from 'public/calendar.png'
 import './index.css'
 import axios from 'axios'
-import {username} from '../../../storage'
-
+// import {username} from '../../../storage'
+let username = localStorage.getItem('username')
 
 let dayOfMonths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 

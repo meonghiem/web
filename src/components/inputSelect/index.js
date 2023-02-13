@@ -1,4 +1,9 @@
-export default function InputSelect({ children, datas, idInput, inputStyle }) {
+export default function InputSelect({
+  children,
+  datas,
+  idInput,
+  inputStyle = undefined,
+}) {
   return (
     <div style={inputStyle}>
       <label

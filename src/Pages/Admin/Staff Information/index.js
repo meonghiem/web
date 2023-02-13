@@ -3,69 +3,69 @@ import Table from "../../../components/table";
 import AppLayout from "../../../layout";
 import { ReactComponent as Search } from "public/svg/search.svg";
 import Button from "../../../components/Button1";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useModal from "../../../hook/useModal";
 import InputText from "../../../components/inputText";
 import InputSelect from "../../../components/inputSelect";
 import Modal from "../../../components/modal";
 import axios from "axios";
 
-const data = [];
-for (let i = 0; i < 30; ++i) {
-  data.push({
-    key: i.toString(),
-    employeeId: "P0001",
-    employee: "Long",
-    department: "PM",
-    accountStatus: "Active",
-    role: "Admin",
-    hiredDate: "4/5/2021",
-    action: "",
-  });
-}
-const url = "http://localhost/restful_php_api/api/account/create.php";
-
-const column = [
-  {
-    title: "Employee ID",
-    dataIndex: "employeeId",
-    key: "id",
-  },
-  {
-    title: "Employee",
-    dataIndex: "employee",
-    key: "location_name",
-  },
-  {
-    title: "Department",
-    dataIndex: "department",
-    key: "description",
-  },
-  {
-    title: "Account Status",
-    dataIndex: "accountStatus",
-    key: "status",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-    key: "total_break",
-  },
-  {
-    title: "Hired Date",
-    dataIndex: "hiredDate",
-    key: "work_time",
-  },
-];
+const url = "http://localhost/restful_php_api/api/admin/addAccount.php";
+const url1 = "http://localhost/restful_php_api/api/admin/getStaffTable.php";
 
 const StaffInfo = () => {
+  const column = [
+    {
+      title: "Employee ID",
+      dataIndex: "employeeId",
+      key: "employeeId",
+    },
+    {
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Department",
+      dataIndex: "department",
+      key: "department",
+    },
+    {
+      title: "Account Status",
+      dataIndex: "accStatus",
+      key: "accStatus",
+    },
+    {
+      title: "Role",
+      dataIndex: "userType",
+      key: "userType",
+    },
+    {
+      title: "Hired Date",
+      dataIndex: "hiredDate",
+      key: "hiredDate",
+    },
+  ];
+  // const data = [];
+  // for (let i = 0; i < 30; ++i) {
+  //   data.push({
+  //     key: i.toString(),
+  //     employeeId: "P0001",
+  //     username: "Long",
+  //     department: "PM",
+  //     accountStatus: "Active",
+  //     role: "Admin",
+  //     hiredDate: "4/5/2021",
+  //     action: "",
+  //   });
+  // }
   const Tab = {
     parent: "Staff Information",
   };
 
   let form = {
     username: "",
-    password: "",
+    // password: "",
     employeeId: "",
     userType: "",
     // accountStatus: 1,
@@ -81,20 +81,27 @@ const StaffInfo = () => {
 
   let dataSearch = {
     employeeId: "",
-    employee: "",
+    username: "",
     department: "",
-    accountStatus: "",
+    accStatus: "",
   };
 
   const [show, setShow] = useState(false);
-  // const { isShowing, toggle } = useModal();
-  // const [text, setText] = useState("");
-  console.log(show);
+  const [data, setData] = useState([]);
+  // const [datasearch, setDatasearch] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      // for (let key in dataSearch) {
+      //   dataSearch[key] = document.getElementById(key).value;
+      // }
+      const dataReturn = await axios.post(url1, null);
+      console.log(dataReturn.data.data);
+      setData(dataReturn.data.data);
+    }
+    fetchData();
+  }, []);
   const create = async (e) => {
     console.log("create");
-    // e.preventDefault();
-
-    // const data = e.target.elements;
     for (let key in form) {
       form[key] = document.getElementById(key).value;
     }
@@ -112,11 +119,27 @@ const StaffInfo = () => {
     setShow(!show);
   };
 
-  const search = () => {
+  const search = async () => {
     for (let key in dataSearch) {
+      // console.log(document.getElementById(key).value);
       dataSearch[key] = document.getElementById(key).value;
     }
     console.log(dataSearch);
+    const dataReturn = await axios.post(url1, dataSearch);
+    for (let key in dataSearch) {
+      // console.log(document.getElementById(key));
+      if (key != "accStatus") document.getElementById(key).value = "";
+      else document.getElementById(key).value = 0;
+    }
+    console.log(dataReturn);
+    let dulieu = dataReturn.data.data;
+    let dulieu1 = dulieu.map((data, index) => {
+      data["key"] = index.toString();
+      return data;
+    });
+    console.log(dulieu1);
+    setData(dulieu1);
+    console.log(dataReturn.data);
   };
 
   return (
@@ -143,7 +166,7 @@ const StaffInfo = () => {
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.5rem",
-                      fontWeight: "700",
+                      fontWeight: "300",
                       fontSize: "1.25rem",
                     }}
                   >
@@ -167,19 +190,19 @@ const StaffInfo = () => {
                 </div>
                 <div style={{ width: "100%" }}>
                   <label
-                    htmlFor="employee"
+                    htmlFor="username"
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.8rem",
-                      fontWeight: "700",
+                      fontWeight: "300",
                       fontSize: "1.25rem",
                     }}
                   >
-                    <p>Employee</p>
+                    <p>Username</p>
                   </label>
                   <input
                     type="text"
-                    id="employee"
+                    id="username"
                     style={{
                       backgroundColor: "#F9FAFB",
                       color: "#111827",
@@ -199,7 +222,7 @@ const StaffInfo = () => {
                     style={{
                       color: "#004b8f",
                       marginBottom: "-0.8rem",
-                      fontWeight: "700",
+                      fontWeight: "300",
                       fontSize: "1.25rem",
                     }}
                   >
@@ -250,7 +273,8 @@ const StaffInfo = () => {
                   />
                 </div> */}
                 <InputSelect
-                  idInput="accountStatus"
+                  labelStyle={{ fontWeight: "700" }}
+                  idInput="accStatus"
                   datas={["INACTIVE", "ACTIVE"]}
                 >
                   Account Status
@@ -274,6 +298,7 @@ const StaffInfo = () => {
                       display: "block",
                       width: "30%",
                       verticalAlign: "center",
+                      cursor: "pointer",
                     }}
                   >
                     <Search
@@ -400,12 +425,12 @@ const StaffInfo = () => {
                   >
                     Gender
                   </InputSelect> */}
-                  <InputText
+                  {/* <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="password"
                   >
                     Password
-                  </InputText>
+                  </InputText> */}
                   {/* <InputText
                     inputStyle={{ width: "100%", marginTop: "-1rem" }}
                     idInput="birthplace"

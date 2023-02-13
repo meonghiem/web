@@ -1,6 +1,8 @@
 import React from "react";
 import Table from "../../../../components/table";
 import AppLayout from "../../../../layout";
+import { useEffect } from "react";
+import axios from "axios";
 
 const LeaveApproval = () => {
   const Tab = {
@@ -11,8 +13,8 @@ const LeaveApproval = () => {
     {
       key: "1",
       no: "1",
-      requestType: "Hour Adjustment",
-      requestDate: new Date("1995-12-17T03:24:00").toLocaleString(),
+      // requestType: "Hour Adjustment",
+      leaveDateFrom: new Date("1995-12-17T03:24:00").toLocaleString(),
       adjustType: "REST",
       time: "01:23",
       reason: "Quên rest",
@@ -132,8 +134,36 @@ const LeaveApproval = () => {
       key: "reason",
     },
   ];
-
-  return <AppLayout tab={Tab} isAdmin={true} content={<div></div>} />;
+  return (
+    <AppLayout
+      tab={Tab}
+      isAdmin={true}
+      content={
+        <div>
+          <div className="table1">
+            <div style={{ color: "#004B8F", fontWeight: "500" }}>
+              Pending Request
+            </div>
+            <Table
+              tableHead={column1}
+              data={data1}
+              tableStyle={{ height: "30vh", marginTop: "10px" }}
+            />
+          </div>
+          <div style={{ marginTop: "1.5rem" }} className="table2">
+            <div style={{ color: "#004B8F", fontWeight: "500" }}>
+              Completed Request
+            </div>
+            <Table
+              tableHead={column1}
+              data={data1}
+              tableStyle={{ height: "30vh", marginTop: "10px" }}
+            />
+          </div>
+        </div>
+      }
+    />
+  );
 };
 
 export default LeaveApproval;

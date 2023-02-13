@@ -4,15 +4,16 @@ import "./tab.css";
 import { adminTabs, employeeTabs } from "../Tabs.js";
 import Refresh from "public/refresh.png";
 import IconButton from "../../components/iconButton";
-import { type } from "../../storage";
+// import { type } from "../../storage";
+import "../../index.css";
 
 // import {ReactComponent as My_profile } from "public/svg/My_profile.svg";
 // import Attendance from "public/attendance.png";
 // import Myprofile from "public/myprofile.png";
-
+let type = localStorage.getItem("type");
 let tabs;
-if(type === "user") tabs = employeeTabs;
-if(type === "admin") tabs = adminTabs;
+if (type === "user") tabs = employeeTabs;
+if (type === "admin") tabs = adminTabs;
 
 function refresh() {
   window.location.reload();
@@ -40,7 +41,7 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
   };
   return (
     <>
-      <div className="tabSlide">
+      <div className="tabSlide isDesktop">
         <ul id="myTab">
           {tabs.map((tab) => {
             return (
@@ -58,21 +59,23 @@ export default function AppTab({ tabName, childName, isAdmin = false }) {
               </li>
             );
           })}
-          <li style={{ width: "15vw", textAlign: "right" }}>
+          {/* <li style={{ width: "15vw", textAlign: "right" }}>
             <IconButton
               icon={Refresh}
               iconStyle={iconStyle}
               children="Refresh"
               onClick={refresh}
             ></IconButton>
-          </li>
+          </li> */}
         </ul>
 
         {hasChild ? (
-          <div className="childTabs">
+          <div className="childTabs isDesktop">
             <ChildTab childTabs={childTab} active={childName} />{" "}
           </div>
         ) : null}
+
+        <div className="isMobile"></div>
       </div>
     </>
   );

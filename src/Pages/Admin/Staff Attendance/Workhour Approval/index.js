@@ -1,6 +1,8 @@
 import React from "react";
 import Table from "../../../../components/table";
 import AppLayout from "../../../../layout";
+import { useEffect } from "react";
+import axios from "axios";
 
 const data1 = [
   {
@@ -126,6 +128,14 @@ const column1 = [
     dataIndex: "reason",
     key: "reason",
   },
+  {
+    title: "Update",
+    key: "button",
+  },
+  // {
+  //   title: "Cancel",
+  //   key: "button",
+  // },
 ];
 
 const column2 = column1;
@@ -136,6 +146,20 @@ const WorkhourApproval = () => {
     parent: "Staff Attendance",
     child: "Workhour Approval",
   };
+  const url =
+    "http://localhost/restful_php_api/api/attendance/readRequesting.php";
+  const url1 =
+    "http://localhost/restful_php_api/api/attendance/readAfterRequest.php";
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = (await axios.get(url)).data.data;
+      const data1 = (await axios.get(url1)).data.data;
+      console.log(data);
+      console.log(data1);
+    };
+
+    fetchData();
+  }, []);
   return (
     <AppLayout
       tab={Tab}

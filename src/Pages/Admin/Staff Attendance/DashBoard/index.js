@@ -28,11 +28,11 @@ const columns = [
     dataIndex: "employee",
     key: "employee",
   },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-  },
+  // {
+  //   title: "Status",
+  //   dataIndex: "status",
+  //   key: "status",
+  // },
   {
     title: "Hour This Month",
     dataIndex: "hourThisMonth",
@@ -264,7 +264,7 @@ const Dashboard = () => {
                 }}
               />
             </div>
-            <div style={{ width: "100%" }}>
+            {/* <div style={{ width: "100%" }}>
               <label
                 htmlFor="status"
                 style={{
@@ -296,7 +296,7 @@ const Dashboard = () => {
                 <option value={0}>IN</option>
                 <option value={1}>OUT</option>
               </select>
-            </div>
+            </div> */}
 
             <div style={{ width: "100%" }}>
               <button

@@ -15,16 +15,25 @@ code {
   html {
     font-size: 15px;
   }
+  .isDesktop{
+    display: none
+  }
 }
 
-@media screen and (min-width: 801px) {
+@media screen and (min-width: 801px) and (max-width: 1200px) {
   html {
     font-size: 18px;
+  }
+  .isDesktop{
+    display: none;
   }
 }
 
 @media screen and (min-width: 1201px) {
   html {
     font-size: 20px;
+  }
+  .isDesktop{
+    display: block;
   }
 }
